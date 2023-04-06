@@ -23,7 +23,7 @@ function Signup() {
         setError("")
         setLoading(true)
         await signup(emailRef.current.value, passwordRef.current.value)
-        navigate("/")
+        navigate("/editprofile")
     }
     catch {
         setError('Error: Account could not be created')
@@ -54,7 +54,7 @@ function Signup() {
                         <Form.Control type="password" ref={passwordConfirmRef} required />
                     </Form.Group>
                     <br/>
-                    <Button disabled={loading} className="w-100 btn-secondary" type="submit">Sign Up</Button>
+                    <Button disabled={loading} className="w-100 btn-dark" type="submit">Sign Up</Button>
                 </Form>
             </Card.Body>
         </Card>

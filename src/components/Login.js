@@ -44,7 +44,7 @@ function Login() {
                         <Form.Control type="password" ref={passwordRef} required />
                     </Form.Group>
                     <br/>
-                    <Button disabled={loading} className="w-100 btn-secondary" type="submit">Log In</Button>
+                    <Button disabled={loading} className="w-100 btn-dark" type="submit">Log In</Button>
                 </Form>
             </Card.Body>
         </Card>

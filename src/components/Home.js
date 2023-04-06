@@ -1,25 +1,10 @@
-import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 function Home() {
-    const [error, setError] = useState("")
-    const { currentUser, logout } = useAuth()
-    const navigate = useNavigate()
 
-    async function handleLogout() {
-        setError("")
-
-        try {
-            await logout()
-            navigate("/login")
-        }
-        catch {
-            setError("Log out unsuccessful")
-        }
-    }
-
+    /*
+    Everything Under the <nav> </nav> is just for testing routing pages to the other account page options.
+    Change code as needed
+    */
     return (
         <>
         <nav className="navbar navbar-dark bg-dark">
@@ -27,9 +12,11 @@ function Home() {
                 <span className="navbar-brand mb-0 h1">Welcome to Clip It!</span>
             </div>
         </nav>
-        <div className="w-100 text-center mt-2">
-            <Button variant="link" onClick={handleLogout}>Log Out</Button>
-        </div>
+
+
+
+        <br/>
+        <a class="btn btn-dark" href="/myprofile" role="button">My Profile</a>
         </>
     );
 }
