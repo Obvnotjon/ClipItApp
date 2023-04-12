@@ -16,24 +16,24 @@ function EditProfile() {
               <div className="row mb-3">
                 <div className="form-floating col-md-5">
                   <input type="text" className="form-control" id="ProfileName" placeholder="Profile Name" />
-                  <label for="ProfileName" className="col-form-label-sm"> Profile Name</label>
+                  <label htmlFor="ProfileName" className="col-form-label-sm"> Profile Name</label>
                 </div>
               </div>
               <div className="row mb-3">
                 <div className="form-floating col-md-5">
                   <input type="text" className="form-control" id="UserName" placeholder="User name" />
-                  <label for="UserName" className="col-form-label-sm"> Username</label>
+                  <label htmlFor="UserName" className="col-form-label-sm"> Username</label>
                 </div>
               </div>
               <div className="row mb-3">
                 <div className="form-floating col-md-5">
                   <textarea className="form-control" placeholder="Profile Bio" id="floatingTextarea2" style={{height: "100px"}}></textarea>
-                  <label for="floatingTextarea2" className="col-form-label-sm"> Profile Bio</label>
+                  <label htmlFor="floatingTextarea2" className="col-form-label-sm"> Profile Bio</label>
                 </div>
               </div>
               <div className="row mb-3">
                 <div className="d-grid gap-1 col-5">
-                  <Button type="submit" className="btn-dark btn-sm">Cancel Changes</Button>
+                  <Button type="submit" className="btn-dark btn-sm" href="/myprofile" >Cancel Changes</Button>
                   <Button type="submit" className="btn-dark btn-sm">Save Changes</Button>
                 </div>
               </div> 

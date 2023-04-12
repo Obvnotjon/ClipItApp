@@ -1,7 +1,8 @@
 import React from 'react';
-import { useAuth } from '../contexts/AuthContext';
+//import { useAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 
+/*
 function PrivateRoute({ children }) {
     const { currentUser } = useAuth();
     return (
@@ -10,3 +11,4 @@ function PrivateRoute({ children }) {
   }
 
 export default PrivateRoute;
+*/

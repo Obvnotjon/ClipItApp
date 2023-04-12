@@ -5,36 +5,21 @@ import Login from './Login';
 import EditProfile from './EditProfile';
 import MyProfile from './MyProfile';
 import PrivateRoute from './PrivateRoute';
-import { AuthProvider } from '../contexts/AuthContext';
 import {BrowserRouter as  Router, Routes, Route} from 'react-router-dom';
 
 function App() {
     return(
             <Router>
-            <AuthProvider>
                 <Routes>
                     <Route exact path="/"
-                    element={
-                        <PrivateRoute>
-                            <Home />
-                        </PrivateRoute>
-                    }/>
+                    element={<Home/>}/>
                     <Route exact path="/editprofile"
-                    element={
-                        <PrivateRoute>
-                            <EditProfile />
-                        </PrivateRoute>
-                    }/>
+                    element={<EditProfile />}/>
                     <Route exact path="/myprofile"
-                    element={
-                        <PrivateRoute>
-                            <MyProfile />
-                        </PrivateRoute>
-                    }/>
+                    element={<MyProfile />}/>
                     <Route path="/signup" element={<Signup />}/>
                     <Route path="/login" element={<Login />}/>
                 </Routes>
-            </AuthProvider>
             </Router>
     );
 }
