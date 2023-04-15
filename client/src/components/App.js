@@ -7,6 +7,7 @@ import MyProfile from './MyProfile';
 import PrivateRoute from './PrivateRoute';
 import {BrowserRouter as  Router, Routes, Route} from 'react-router-dom';
 
+
 function App() {
     return(
             <Router>
@@ -19,6 +20,7 @@ function App() {
                     element={<MyProfile />}/>
                     <Route path="/signup" element={<Signup />}/>
                     <Route path="/login" element={<Login />}/>
+
                 </Routes>
             </Router>
     );

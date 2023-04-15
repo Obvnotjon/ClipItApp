@@ -79,7 +79,7 @@ function Home() {
             </form>
         </div>
         <div className="feed">
-                <Stack gap={4} style={{ padding: '5%' }}>
+                <Stack gap={4} style={{ padding: '20%' }}>
 
                     
                     <Card>

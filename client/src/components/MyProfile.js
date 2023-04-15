@@ -3,6 +3,8 @@ import collapse from "bootstrap";
 import { Card, Button, Container, Image, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import ProfilePicture from './ProfilePicture';
+
 
 function MyProfile () {
     const [error, setError] = useState("")
@@ -65,10 +67,12 @@ function MyProfile () {
             <Card>
                 <Card.Body>
                         <br/>
+                        <div>
+                            <ProfilePicture src="/images/profile.jpg" alt="pfp"></ProfilePicture>                            
+                        </div>
                         <br/>
-                        <br/>
-                        <h4 className="card-title">Profile Name</h4>
-                        <h6>@username</h6>
+                        <h5 className="card-title">Profile Name</h5>
+                        <h6>@JonReyna</h6>
 
                         <p className="card-text"><strong>Bio: </strong>Chicken Banana Soup with a side of chili cheese sprite on a cool hot winter breakfast with a side of huge random text deepfried with coke</p>
                         <div className="d-grid gap-1 d-md-flex justify-content-md-start">

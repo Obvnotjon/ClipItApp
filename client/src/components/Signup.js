@@ -15,7 +15,6 @@ function Signup() {
                 username,
                 password
                 }).then((response) => {
-                    alert(response.data);
                     navigate("/editprofile");
                 }).catch ((error) => {
                     setError(error.response.data);
