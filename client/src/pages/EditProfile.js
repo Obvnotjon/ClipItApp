@@ -1,4 +1,4 @@
-import { Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Card, Container } from 'react-bootstrap';
 
 function EditProfile() {
     return (
@@ -8,6 +8,8 @@ function EditProfile() {
               <span className="navbar-brand mb-0 h1">Clip It!</span>
             </div>
           </nav>
+
+          <Container className="d-flex align-items-center justify-content-center" style={{minHeight: "40vh"}}>
           <Card>
             <Card.Body>
             <h1 className="text-center"> Edit Profile</h1>
@@ -40,6 +42,8 @@ function EditProfile() {
             </Form>
             </Card.Body>
           </Card>
+          </Container>
+
         </>
     );
 }
