@@ -23,7 +23,6 @@ function Signup() {
 
   return (
     <>
-
         <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
         <div className="w-200" style={{ maxWidth: '500px' }}>
         <img src="/Assets/images/clipIt.png" alt="logo" width="400" height="100"/>
