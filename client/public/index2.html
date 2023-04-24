@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- linking font awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <style>
+      /* Whole html box designing */
+      html {
+        box-sizing: border-box;
+      }
+
+      /* Body width fixing */
+      body {
+        max-width: 100%;
+      }
+
+      /* Box sizing depending on parent */
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+
+      /* Styling column */
+      .column {
+        float: left;
+        width: 33%;
+        margin-bottom: 16px;
+        padding: 5px 10px;
+      }
+
+      /* Column width change depends on screen size */
+      @media screen and (max-width: 670px) {
+        .column {
+          width: 100%;
+          text-align: none;
+        }
+      }
+
+      /* Card designing */
+      .card {
+        background-color: black;
+        border: 1px solid transparent;
+        color: white;
+      }
+
+      .container {
+        padding: 0 16px;
+      }
+
+      /* Icon styling */
+      .fa {
+        margin: 10px;
+        font-size: 68px;
+      }
+
+      .fa:hover {
+        transform: rotateY(180deg);
+        transition: transform 0.8s;
+      }
+
+      .container::after,
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      /* Button designing */
+      .button {
+        border: none;
+        padding: 8px;
+        color: white;
+        background-color: #449d44;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      /* Hover effect on button */
+      .button:hover {
+        background-color: green;
+      }
+
+      /* Margining first member of team */
+      #gfg {
+        float: none;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h1>Meet The ClipIt! Team </h1>
+      <hr />
+      <h2> The ClipIt! app is focusing on creating a platform around gaming, creativity, and content creation with an emphasis on promoting more interactivity and intimacy between users. </h2>
+      <hr />
+
+      <!-- First member of the team -->
+      <div class="row">
+        <div class="column" id="gfg">
+          <div class="card">
+            <!-- <i class="fa fa-user-circle" style="font-size: 68px"></i> -->
+            <div class="container">
+              <h2>Bryan Chavez</h2>
+
+              <p>Role Here</p>
+              <style>
+                img {
+                  width: 100px;
+                  border-radius: 50px;
+                }
+              </style>
+              <img src="">
+              <p></p>
+              <button class="button">View</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other members of the team -->
+      <div class="row">
+        <div class="column">
+          <div class="card">
+            <!-- <i class="fa fa-user-circle" style="font-size: 68px"></i> -->
+            <div class="container">
+              <h2>Duncan Foutz</h2>
+
+              <p>Role Here</p>
+
+              <p></p>
+              <style>
+                img {
+                  width: 100px;
+                  border-radius: 50px;
+                }
+              </style>
+              <img src="">
+              <p></p>
+              <button class="button">View</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="card">
+            <!-- <i class="fa fa-user-circle" style="font-size: 68px"></i> -->
+            <div class="container">
+              <h2>Cynthia Ibarra</h2>
+
+              <p>Role Here</p>
+
+              <p></p>
+              <style>
+                img {
+                  width: 100px;
+                  border-radius: 50px;
+                }
+              </style>
+              <img src="">
+              <p></p>
+              <button class="button">View</button>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card">
+            <!-- <i class="fa fa-user-circle" style="font-size: 68px"></i> -->
+            <div class="container">
+              <h2>Tré Mitchell</h2>
+
+              <p>Role Here</p>
+
+              <p></p>
+              <style>
+                img {
+                  width: 100px;
+                  border-radius: 50px;
+                }
+              </style>
+              <img src="">
+              <p></p>
+              <button class="button">View</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="column">
+              <div class="card">
+                <!-- <i class="fa fa-user-circle" style="font-size: 68px"></i> -->
+                <div class="container">
+                  <h2>Fernando Nunez</h2>
+    
+                  <p>Role Here</p>
+    
+                  <p></p>
+                  <style>
+                    img {
+                      width: 100px;
+                      border-radius: 50px;
+                    }
+                  </style>
+                  <img src="">
+                  <p></p>
+                  <button class="button">View</button>
+                </div>
+              </div>
+            </div><div class="row">
+                <div class="column">
+                  <div class="card">
+                    <!-- <i class="fa fa-user-circle" style="font-size: 68px"></i> -->
+                    <div class="container">
+                      <h2>Tani Ordaz</h2>
+        
+                      <p>Role Here</p>
+        
+                      <p></p>
+                      <style>
+                        img {
+                          width: 100px;
+                          border-radius: 50px;
+                        }
+                      </style>
+                      <img src="">
+                      <p></p>
+                      <button class="button">View</button>
+                    </div>
+                  </div>
+                </div><div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <!-- <i class="fa fa-user-circle" style="font-size: 68px"></i> -->
+                        <div class="container">
+                          <h2>Jon Reyna</h2>
+            
+                          <p>Role Here</p>
+            
+                          <p></p>
+                          <style>
+                            img {
+                              width: 100px;
+                              border-radius: 50px;
+                            }
+                          </style>
+                          <img src="">
+                          <p></p>
+                          <button class="button">View</button>
+                        </div>
+                      </div>
+                    </div>
+      </div>
+    </center>
+  </body>
+</html>
