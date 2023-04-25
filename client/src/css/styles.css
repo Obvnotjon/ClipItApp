@@ -1,0 +1,84 @@
+/* Whole html box designing */
+html {
+  box-sizing: border-box;
+}
+
+/* Body width fixing */
+body {
+  max-width: 100%;
+}
+
+/* Box sizing depending on parent */
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* Styling column */
+.column {
+  float: left;
+  width: 33%;
+  margin-bottom: 16px;
+  padding: 5px 10px;
+}
+
+/* Column width change depends on screen size */
+@media screen and (max-width: 670px) {
+  .column {
+    width: 100%;
+    text-align: none;
+  }
+}
+
+/* Card designing */
+.card {
+  background-color: black;
+  border: 1px solid transparent;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+/* Icon styling */
+.fa {
+  margin: 10px;
+  font-size: 68px;
+}
+
+.fa:hover {
+  transform: rotateY(180deg);
+  transition: transform 0.8s;
+}
+
+.container::after,
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Button designing */
+.button {
+  border: none;
+  padding: 8px;
+  color: white;
+  background-color: #449d44;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Hover effect on button */
+.button:hover {
+  background-color: green;
+}
+
+/* Margining first member of team */
+#gfg {
+  float: none;
+  margin: auto;
+}

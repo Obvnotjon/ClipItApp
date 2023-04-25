@@ -6,7 +6,7 @@ import EditProfile from "./EditProfile";
 import MyProfile from "./MyProfile";
 import Messages from "./Messages";
 // import PrivateRoute from "./PrivateRoute";
-// import AboutUs from "./AboutUs";
+import AboutUs from "./AboutUs";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/messages" element={<Messages />} />
-        {/* <Route path="/aboutus" element={<AboutUs />} /> */}
+        <Route path="/aboutus" element={<AboutUs />} />
       </Routes>
     </Router>
   );
