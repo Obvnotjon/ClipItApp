@@ -1,4 +1,9 @@
+import { AuthContext } from "../context/authContext";
+import { useContext } from "react";
+
 function ClipItNav () {
+    const { currentUser, logout } = useContext(AuthContext);
+
     return (
         <nav className="navbar navbar-dark bg-dark">
             <div className="container-fluid">
@@ -8,7 +13,7 @@ function ClipItNav () {
                     <a className="navbar-brand" href="/"><img src="/Assets/images/clipIt.png" alt="logo" width="100" height="25" className="d-inline-block align-text-top"/></a>
                     <div className="offcanvas offcanvas-start text-bg-dark" style={{ '--bs-offcanvas-width': 'min(95vw, 200px)' }} data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                     <div className="offcanvas-header">
-                    <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">Dashboard</h5>
+                    <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">{currentUser?.username}</h5>
                     <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div className="offcanvas-body ">
@@ -29,6 +34,9 @@ function ClipItNav () {
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="#">Settings</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#" onClick={logout}>Log Out</a>
                     </li>
                     </ul>
                 </div>

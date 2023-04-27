@@ -5,6 +5,7 @@ import React from 'react'
 function Messages() {
   return (
       <>
+        <div className="default-bg-container"></div>
         <ClipItNav/>
         <div style={{display: "flex", height: "95.5vh"}}>
           <div className="border" style={{width: "15%"}}>

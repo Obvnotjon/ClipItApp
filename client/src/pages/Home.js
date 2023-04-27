@@ -1,8 +1,9 @@
 import { Card, Stack, Image, Form, Button } from "react-bootstrap";
-import collapse from "bootstrap";
-import Axios from "axios"
-import { useState} from "react";
 import ClipItNav from "../components/ClipItNav";
+import collapse from "bootstrap";
+import { useState } from "react";
+import Axios from "axios"
+import "./Background.css"
 
 function Home() {
     const [title, setTitle] = useState("");
@@ -30,6 +31,7 @@ function Home() {
 
     return (
         <>
+            <div className="custom-bg-container"></div>
             <ClipItNav />
             <div className="upload-section">
                 <form>
@@ -57,7 +59,7 @@ function Home() {
                                 <div className="bg-light border ms-auto"> 2 mins ago </div>
                             </Stack>
                             <Form>
-                                <div style={{width: '97%', margin: 'auto'}}>
+                                <div style={{width: '97%', margin: 'auto', overflow: 'hidden'}}>
                                     <div className="form-floating col-md-5">
                                         <input type="text" className="form-control" id="comment" placeholder="comments" style={{width: '239%', margin: 'auto'}}/>
                                         <label> Comment </label>
@@ -84,7 +86,7 @@ function Home() {
                                 <div className="bg-light border ms-auto"> 2 mins ago </div>
                             </Stack>
                             <Form>
-                                <div style={{width: '97%', margin: 'auto'}}>
+                                <div style={{width: '97%', margin: 'auto', overflow: 'hidden'}}>
                                     <div className="form-floating col-md-5">
                                         <input type="text" className="form-control" id="comment" placeholder="comments" style={{width: '239%', margin: 'auto'}}/>
                                         <label> Comment </label>
@@ -111,7 +113,7 @@ function Home() {
                                 <div className="bg-light border ms-auto"> 2 mins ago </div>
                             </Stack>
                             <Form>
-                                <div style={{width: '97%', margin: 'auto'}}>
+                                <div style={{width: '97%', margin: 'auto', overflow: 'hidden'}}>
                                     <div className="form-floating col-md-5">
                                         <input type="text" className="form-control" id="comment" placeholder="comments" style={{width: '239%', margin: 'auto'}}/>
                                         <label> Comment </label>

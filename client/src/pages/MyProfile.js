@@ -17,6 +17,7 @@ function MyProfile () {
     */
     return (
         <>
+            <div className="custom-bg-container"></div>
             <ClipItNav/>
             <Container className="d-flex align-items-center justify-content-center" style={{minHeight: "40vh"}}>
                 <Card>

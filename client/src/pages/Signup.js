@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
 import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import Axios from 'axios';
+import "./Background.css";
 
 function Signup() {
         const [username, setUsername] = useState("");
@@ -11,7 +12,7 @@ function Signup() {
 
         const handleSubmit = (e) => {
             e.preventDefault();
-                Axios.post("http://localhost:8800/signup", {
+                Axios.post("/signup", {
                 username,
                 password
                 }).then((response) => {
@@ -23,6 +24,7 @@ function Signup() {
 
   return (
     <>
+        <div className="bg-container"></div>
         <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
         <div className="w-200" style={{ maxWidth: '500px' }}>
         <img src="/Assets/images/clipIt.png" alt="logo" width="400" height="100"/>

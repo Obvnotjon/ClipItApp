@@ -1,31 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import Axios from 'axios';
+import { AuthContext } from '../context/authContext';
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const { login } = useContext(AuthContext);
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await Axios.post("http://localhost:8800/login", {
-            username,
-            password,
-          });
-            navigate("/")
-            console.log(response.data);
+            await login(username, password);
+            navigate("/");
         } catch (error) {
             setError(error.response.data);
-            console.error(error);
         }
       };
 
   return (
     <>
+        <div className="bg-container"></div>
         <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
         <div className="w-200" style={{ maxWidth: '500px' }}>
         <img src="/Assets/images/clipIt.png" alt="logo" width="400" height="100"/>
