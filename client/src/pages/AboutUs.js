@@ -32,17 +32,14 @@ function AboutUs() {
 
               {/* <img src=""> */}
               {/* <p></p> */}
-              <button className="button">View</button>
+              {/* <button className="button">View</button> */}
             </div>
           </div>
         </div>
-      </div>
-
-      {/*  Other members of the team */}
-      <div className="row">
         <div className="column">
           <div className="card">
             {/*  <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
             <div className="container">
               <h2>Duncan Foutz</h2>
 
@@ -59,6 +56,7 @@ function AboutUs() {
         <div className="column">
           <div className="card">
             {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
             <div className="container">
               <h2>Cynthia Ibarra</h2>
 
@@ -72,9 +70,14 @@ function AboutUs() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/*  Other members of the team */}
+      <div className="row">
         <div className="column">
           <div className="card">
             {/* <i className="fa fa-user-circle" style="font-size: 68px"></i>*/}
+            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
             <div className="container">
               <h2>Tré Mitchell</h2>
 
@@ -87,11 +90,10 @@ function AboutUs() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="row">
         <div className="column">
           <div className="card">
             {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
             <div className="container">
               <h2>Fernando Nunez</h2>
 
@@ -104,11 +106,10 @@ function AboutUs() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="row">
         <div className="column">
           <div className="card">
             {/* <i className="fa fa-user-circle" style="font-size: 68px"></i>  */}
+            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
             <div className="container">
               <h2>Tani Ordaz</h2>
 
@@ -121,20 +122,22 @@ function AboutUs() {
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="column">
-            <div className="card">
-              {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
-              <div className="container">
-                <h2>Jon Reyna</h2>
+      </div>
 
-                <p>Role Here</p>
+      <div className="row">
+        <div className="column">
+          <div className="card">
+            {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
+            <div className="container">
+              <h2>Jon Reyna</h2>
 
-                {/* <p></p> */}
-                {/* <img src="">
+              <p>Role Here</p>
+
+              {/* <p></p> */}
+              {/* <img src="">
                           <p></p> */}
-                {/* <button className="button">View</button> */}
-              </div>
+              {/* <button className="button">View</button> */}
             </div>
           </div>
         </div>

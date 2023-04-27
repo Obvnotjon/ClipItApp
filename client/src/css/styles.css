@@ -40,6 +40,7 @@ body {
 
 .container {
   padding: 0 16px !important;
+  text-align: center;
 }
 
 /* Icon styling */
@@ -81,4 +82,9 @@ body {
 #gfg {
   float: none !important;
   margin: auto !important;
+}
+
+/* Centering columns inside the row */
+.row {
+  margin: 0 auto;
 }
