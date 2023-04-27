@@ -1,8 +1,13 @@
 import "../css/styles.css";
 
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import ClipItNav from "../components/ClipItNav";
 function AboutUs() {
   return (
     <>
+      <ClipItNav />
       <h1>Meet The ClipIt! Team </h1>
       <hr />
       <h2>
@@ -14,29 +19,31 @@ function AboutUs() {
       <hr />
 
       {/* First member of the team  */}
-      <div class="row">
-        <div class="column" id="gfg">
-          <div class="card">
-            {/* <!-- <i class="fa fa-user-circle" style="font-size: 68px"></i> --> */}
-            <div class="container">
+      <div className="row">
+        <div className="column" id="gfg">
+          <div className="card">
+            {/* <i className="fa fa-user-circle" style={{ fontSize: "68px" }}></i> */}
+            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
+
+            <div className="container">
               <h2>Bryan Chavez</h2>
 
               <p>Role Here</p>
 
               {/* <img src=""> */}
               {/* <p></p> */}
-              <button class="button">View</button>
+              <button className="button">View</button>
             </div>
           </div>
         </div>
       </div>
 
       {/*  Other members of the team */}
-      <div class="row">
-        <div class="column">
-          <div class="card">
-            {/*  <i class="fa fa-user-circle" style="font-size: 68px"></i> */}
-            <div class="container">
+      <div className="row">
+        <div className="column">
+          <div className="card">
+            {/*  <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            <div className="container">
               <h2>Duncan Foutz</h2>
 
               <p>Role Here</p>
@@ -45,14 +52,14 @@ function AboutUs() {
 
               {/* <img src=""> */}
               {/* <p></p> */}
-              <button class="button">View</button>
+              {/* <button className="button">View</button> */}
             </div>
           </div>
         </div>
-        <div class="column">
-          <div class="card">
-            {/* <i class="fa fa-user-circle" style="font-size: 68px"></i> */}
-            <div class="container">
+        <div className="column">
+          <div className="card">
+            {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            <div className="container">
               <h2>Cynthia Ibarra</h2>
 
               <p>Role Here</p>
@@ -61,14 +68,14 @@ function AboutUs() {
 
               {/* <img src=""> */}
               {/* <p></p> */}
-              <button class="button">View</button>
+              {/* <button className="button">View</button> */}
             </div>
           </div>
         </div>
-        <div class="column">
-          <div class="card">
-            {/* <i class="fa fa-user-circle" style="font-size: 68px"></i>*/}
-            <div class="container">
+        <div className="column">
+          <div className="card">
+            {/* <i className="fa fa-user-circle" style="font-size: 68px"></i>*/}
+            <div className="container">
               <h2>Tré Mitchell</h2>
 
               <p>Role Here</p>
@@ -76,16 +83,16 @@ function AboutUs() {
               <p></p>
               {/* <img src="">
               <p></p> */}
-              <button class="button">View</button>
+              {/* <button className="button">View</button> */}
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="column">
-          <div class="card">
-            {/* <i class="fa fa-user-circle" style="font-size: 68px"></i> */}
-            <div class="container">
+      <div className="row">
+        <div className="column">
+          <div className="card">
+            {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            <div className="container">
               <h2>Fernando Nunez</h2>
 
               <p>Role Here</p>
@@ -93,16 +100,16 @@ function AboutUs() {
               <p></p>
               {/* <img src="">
                   <p></p> */}
-              <button class="button">View</button>
+              {/* <button className="button">View</button> */}
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="column">
-          <div class="card">
-            {/* <i class="fa fa-user-circle" style="font-size: 68px"></i>  */}
-            <div class="container">
+      <div className="row">
+        <div className="column">
+          <div className="card">
+            {/* <i className="fa fa-user-circle" style="font-size: 68px"></i>  */}
+            <div className="container">
               <h2>Tani Ordaz</h2>
 
               <p>Role Here</p>
@@ -110,15 +117,15 @@ function AboutUs() {
               <p></p>
               {/* <img src="">
                       <p></p> */}
-              <button class="button">View</button>
+              {/* <button className="button">View</button> */}
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="column">
-            <div class="card">
-              {/* <i class="fa fa-user-circle" style="font-size: 68px"></i> */}
-              <div class="container">
+        <div className="row">
+          <div className="column">
+            <div className="card">
+              {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+              <div className="container">
                 <h2>Jon Reyna</h2>
 
                 <p>Role Here</p>
@@ -126,7 +133,7 @@ function AboutUs() {
                 {/* <p></p> */}
                 {/* <img src="">
                           <p></p> */}
-                <button class="button">View</button>
+                {/* <button className="button">View</button> */}
               </div>
             </div>
           </div>

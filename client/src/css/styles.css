@@ -1,84 +1,84 @@
 /* Whole html box designing */
 html {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 /* Body width fixing */
 body {
-  max-width: 100%;
+  max-width: 100% !important;
 }
 
 /* Box sizing depending on parent */
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  box-sizing: inherit !important;
 }
 
 /* Styling column */
 .column {
-  float: left;
-  width: 33%;
-  margin-bottom: 16px;
-  padding: 5px 10px;
+  float: left !important;
+  width: 33% !important;
+  margin-bottom: 16px !important;
+  padding: 5px 10px !important;
 }
 
 /* Column width change depends on screen size */
 @media screen and (max-width: 670px) {
   .column {
-    width: 100%;
-    text-align: none;
+    width: 100% !important;
+    text-align: none !important;
   }
 }
 
 /* Card designing */
 .card {
-  background-color: black;
-  border: 1px solid transparent;
-  color: white;
+  background-color: black !important;
+  border: 1px solid transparent !important;
+  color: white !important;
 }
 
 .container {
-  padding: 0 16px;
+  padding: 0 16px !important;
 }
 
 /* Icon styling */
 .fa {
-  margin: 10px;
-  font-size: 68px;
+  margin: 10px !important;
+  font-size: 68px !important;
 }
 
 .fa:hover {
-  transform: rotateY(180deg);
-  transition: transform 0.8s;
+  transform: rotateY(180deg) !important;
+  transition: transform 0.8s !important;
 }
 
 .container::after,
 .row::after {
-  content: "";
-  clear: both;
-  display: table;
+  content: "" !important;
+  clear: both !important;
+  display: table !important;
 }
 
 /* Button designing */
 .button {
-  border: none;
-  padding: 8px;
-  color: white;
-  background-color: #449d44;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom: 10px;
+  border: none !important;
+  padding: 8px !important;
+  color: white !important;
+  background-color: #449d44 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  width: 100% !important;
+  margin-bottom: 10px !important;
 }
 
 /* Hover effect on button */
 .button:hover {
-  background-color: green;
+  background-color: green !important;
 }
 
 /* Margining first member of team */
 #gfg {
-  float: none;
-  margin: auto;
+  float: none !important;
+  margin: auto !important;
 }

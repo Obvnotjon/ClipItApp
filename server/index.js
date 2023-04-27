@@ -8,10 +8,17 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// const db = mysql2.createConnection({
+//   host: "clipit-sm-db.co8sylbqcwmx.us-east-2.rds.amazonaws.com",
+//   user: "clipitadmin",
+//   password: "CSE4550SMWA!", //Basketball8$
+//   database: "smdb",
+// });
+
 const db = mysql2.createConnection({
-  host: "clipit-sm-db.co8sylbqcwmx.us-east-2.rds.amazonaws.com",
-  user: "clipitadmin",
-  password: "CSE4550SMWA!",
+  host: "localhost",
+  user: "root",
+  password: "Basketball8$", //CSE4550SMWA!
   database: "smdb",
 });
 
@@ -20,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const q = "SELECT * FROM registration WHERE username = ? AND password = ?";
+  const q = "SELECT * FROM users WHERE username = ? AND password = ?";
   const { username, password } = req.body;
 
   db.query(q, [username, password], (error, results, fields) => {
@@ -34,8 +41,8 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-  const qc = "SELECT * FROM registration WHERE username = ?";
-  const q = "INSERT INTO registration (username, password) VALUES (?,?)";
+  const qc = "SELECT * FROM users WHERE username = ?";
+  const q = "INSERT INTO users (username, password) VALUES (?,?)";
   const { username, password } = req.body;
 
   db.query(qc, [username], (error, results) => {
@@ -57,34 +64,8 @@ app.post("/signup", async (req, res) => {
 });
 
 app.get("/signup", (req, res) => {
-  const q = "SELECT * FROM registration";
+  const q = "SELECT * FROM users";
   db.query(q, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-
-app.get("/profile", (req, res) => {
-  const q = "SELECT * FROM profile";
-  db.query(q, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-
-app.get("/posts", (req, res) => {
-  const q = "SELECT * FROM posts";
-  db.query(q, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-
-app.post("/posts", (req, res) => {
-  const q = "INSERT INTO posts (`comment`,`postcontent`) VALUES (?)";
-  const values = [req.body.comment, req.body.postcontent];
-
-  db.query(q, [values], (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
