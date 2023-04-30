@@ -5,45 +5,76 @@ function ClipItNav () {
     const { currentUser, logout } = useContext(AuthContext);
 
     return (
-        <nav className="navbar navbar-dark bg-dark">
-            <div className="container-fluid">
-                <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-                </button>    
-                    <a className="navbar-brand" href="/"><img src="/Assets/images/clipIt.png" alt="logo" width="100" height="25" className="d-inline-block align-text-top"/></a>
-                    <div className="offcanvas offcanvas-start text-bg-dark" style={{ '--bs-offcanvas-width': 'min(95vw, 200px)' }} data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-                    <div className="offcanvas-header">
-                    <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">{currentUser?.username}</h5>
-                    <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <nav className="navbar navbar-dark" style={{background: "#292929"}}>
+                <div className="container-fluid">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button> 
+                    <a className="navbar-brand" href="/">
+                        <img src="images/clipitwhite.png" alt="1" width="125px"/>
+                    </a>
+                    <div className="offcanvas offcanvas-start " 
+                        style={{ '--bs-offcanvas-width': 'min(95vw, 200px)', background: "#292929", color: "white"}} data-bs-scroll="true" 
+                        data-bs-backdrop="false" tabIndex="-1"
+                        id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                        <div className="offcanvas-header">
+                        <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">{currentUser?.username}</h5>
+                        <button type="button" className="btn-close btn-close-white" 
+                            data-bs-dismiss="offcanvas" 
+                            aria-label="Close">
+                        </button>
                     </div>
                     <div className="offcanvas-body ">
-                    <form className="d-flex mt-1" role="search">
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button className="btn btn-sm btn-light" type="submit">Search</button>
-                    </form>
+                        <form className="d-flex" role="search">
+                            <input className="form-control rounded-start" type="search" placeholder="Search" aria-label="Search" />
+                            <button className="btn btn-sm btn-light" style={{color: "#263238"}} type="submit">
+                                {<i className="fa-solid fa-magnifying-glass"></i>}
+                            </button>
+                        </form>
 
-                    <ul className="navbar-nav justify-content-end flex-grow-1 pe-1  align-items-center">
-                    <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/myprofile">Profile</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/messages">Messages</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Settings</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#" onClick={logout}>Log Out</a>
-                    </li>
-                    </ul>
+                        <ul className="navbar-nav justify-content-end flex-grow-1 pe-1  align-items-start">
+                            <li className="nav-item">
+                                <a className="nav-link" href="/">
+                                    {<i className="fa-solid fa-house" 
+                                    style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  Home
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/myprofile">
+                                    {<i className="fa-solid fa-address-card" 
+                                    style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  Profile
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/messages">
+                                    {<i className="fa-solid fa-message" 
+                                    style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  Messages
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">
+                                    {<i className="fa-solid fa-gear"
+                                    style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  Settings
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/aboutus">
+                                    {<i className="fa-solid fa-circle-info" 
+                                    style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  About Us
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/login" onClick={logout}>
+                                    {<i className="fa-solid fa-right-from-bracket" 
+                                    style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
                 </div>
-                </div>
-            </div>
-        </nav>
-    )
+            </nav>
+    );
 }
 
 export default ClipItNav;

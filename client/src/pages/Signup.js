@@ -27,29 +27,37 @@ function Signup() {
         <div className="bg-container"></div>
         <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
         <div className="w-200" style={{ maxWidth: '500px' }}>
-        <img src="/Assets/images/clipIt.png" alt="logo" width="400" height="100"/>
-        <Card>
+        <Card className="text-light border" style={{background: "#212121"}}>
             <Card.Body>
+                <img src = "images/clipitwhite.png" alt = "logo" width = "350px" hspace = "20"></img>
+                <div className="row mt-3"/>
                 <h3 className="text-center">Welcome, Sign Up Today</h3>
-                {error && <Alert variant="danger"> {error}</Alert>}
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group id="username">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                    </Form.Group>
+                <div className="row mt-3"/>
+                {error && <Alert className="text-center" variant="danger"> {error}</Alert>}
 
-                    
-                    <Form.Group id="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group id="username" className = "form-group input-group">
+                        <i className="fa-solid fa-address-card" style={{color: "#212121", padding: "15px 11px", background: "#BCC0C0"}}/>
+                        <Form.Control className = "form-control-sm"
+                        type="text" name="username"
+                        placeholder="Create a Username" value={username}
+                        onChange={(e) => setUsername(e.target.value)} required />
+                    </Form.Group>
+                    <div className="column mt-3"/>
+                    <Form.Group id="password" className = "form-group input-group">
+                        <i className="fa-solid fa-key" style={{color: "#212121", padding: "15px 12px",background: "#BCC0C0" }}/>
+                        <Form.Control className = "form-control-sm "
+                        type="password" name="password"
+                        placeholder="Create a Password" value={password}
+                        onChange={(e) => setPassword(e.target.value)} required />
                     </Form.Group>
                     <br/>
-                    <Button className="w-100 btn-dark" type="submit">Sign Up</Button>
+                    <Button className="w-100 btn-light" type="submit">Sign Up</Button>
                 </Form>
             </Card.Body>
         </Card>
         <br/>
-        <Card>
+        <Card className="text-light border" style={{background: "#212121"}}>
             <br/>
                 <div className="w-100 text-center mt-2">
                     Already have an account? <Link to="/login">Log in!</Link>

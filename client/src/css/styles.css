@@ -1,0 +1,77 @@
+/* Whole html box designing */
+html {
+    box-sizing: border-box !important;
+  }
+  
+  /* Body width fixing */
+  body {
+    max-width: 100% !important;
+  }
+  
+  /* Box sizing depending on parent */
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit !important;
+  }
+  
+ 
+  /* Column width change depends on screen size */
+  @media screen and (max-width: 670px) {
+    .column {
+      width: 100% !important;
+      text-align: none !important;
+    }
+  }
+  
+  
+  .container {
+    padding: 0 16px !important;
+    text-align: center;
+  }
+  
+  /* Icon styling */
+  .fa {
+    margin: 10px !important;
+    font-size: 68px !important;
+  }
+  
+  .fa:hover {
+    transform: rotateY(180deg) !important;
+    transition: transform 0.8s !important;
+  }
+  
+  .container::after,
+  .row::after {
+    content: "" !important;
+    clear: both !important;
+    display: table !important;
+  }
+  
+  /* Button designing */
+  .button {
+    border: none !important;
+    padding: 8px !important;
+    color: white !important;
+    background-color: #449d44 !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    margin-bottom: 10px !important;
+  }
+  
+  /* Hover effect on button */
+  .button:hover {
+    background-color: green !important;
+  }
+  
+  /* Margining first member of team */
+  #gfg {
+    float: none !important;
+    margin: auto !important;
+  }
+  
+  /* Centering columns inside the row */
+  .row {
+    margin: 0 auto;
+  }

@@ -3,6 +3,7 @@ import PrivateRoute from './PrivateRoute';
 import EditProfile from './EditProfile';
 import MyProfile from './MyProfile';
 import Messages from './Messages';
+import AboutUs from './AboutUs';
 import Signup from './Signup';
 import Login from './Login';
 import React from 'react';
@@ -25,6 +26,7 @@ function App() {
                         
                         <Route path="/signup" element={<Signup />}/>
                         <Route path="/login" element={<Login />}/>
+                        <Route path="/aboutus" element={<AboutUs />} />
                 </Routes>
             </Router>
     );
