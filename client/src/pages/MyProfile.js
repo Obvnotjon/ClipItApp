@@ -1,4 +1,4 @@
-import ProfilePicture from '../components/ProfilePicture';
+import  ProfilePicture  from '../components/ProfilePicture';
 import { Card, Button, Container, Stack } from 'react-bootstrap';
 import { AuthContext } from "../context/authContext";
 import ClipItNav from '../components/ClipItNav';
@@ -34,7 +34,7 @@ function MyProfile () {
                     <Card.Body>
                        <br/>
                         <div>
-                            <ProfilePicture src="/images/profile.jpg" alt="pfp"/>                            
+                            <ProfilePicture src={currentUser?.pfp} alt="pfp"/>                            
                         </div>
                         <br/>
                         <h5 className="card-title">{currentUser?.name}</h5>

@@ -53,7 +53,7 @@ function EditProfile() {
                                 
                             </input>   
 
-                            <label for = "input-file" 
+                            <label htmlFor = "input-file" 
                                 className = "rounded"
                                 style = {{
                                     display: "block", 
@@ -89,7 +89,7 @@ function EditProfile() {
                 <div className="mb-1">
                     
         <label 
-        for="exampleFormControlTextarea1" 
+        htmlFor="exampleFormControlTextarea1" 
         className="form-label"></label>
 
         <textarea className="form-control" placeholder = "Bio" id="exampleFormControlTextarea1" rows="3"></textarea>

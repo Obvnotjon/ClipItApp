@@ -1,4 +1,6 @@
 import { AuthContext } from "../context/authContext";
+import ProfilePicture from "./ProfilePicture";
+import PostPfp from "./PostPfp";
 import { useContext } from "react";
 
 function ClipItNav () {
@@ -18,7 +20,7 @@ function ClipItNav () {
                         data-bs-backdrop="false" tabIndex="-1"
                         id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                         <div className="offcanvas-header">
-                        <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">{currentUser?.username}</h5>
+                        <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel"><PostPfp src={currentUser?.pfp} alt="pfp"/>   {currentUser?.username}</h5>
                         <button type="button" className="btn-close btn-close-white" 
                             data-bs-dismiss="offcanvas" 
                             aria-label="Close">

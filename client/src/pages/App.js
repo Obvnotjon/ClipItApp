@@ -1,4 +1,5 @@
-import {BrowserRouter as  Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PrivateRoute from './PrivateRoute';
 import EditProfile from './EditProfile';
 import MyProfile from './MyProfile';
@@ -9,11 +10,14 @@ import Login from './Login';
 import React from 'react';
 import Home from './Home';
 
+const queryClient = new QueryClient();
+
 //For developing purposes, remove <PrivateRoute> tags so that you do not need
 //to Log in to view all the protected pages when testing changes
 function App() {
     return(
-            <Router>
+            <QueryClientProvider client={queryClient}>
+                <Router>
                 <Routes>
                     <Route exact path="/"
                         element={<PrivateRoute><Home/></PrivateRoute>}/>
@@ -29,6 +33,8 @@ function App() {
                         <Route path="/aboutus" element={<AboutUs />} />
                 </Routes>
             </Router>
+            </QueryClientProvider>
+            
     );
 }
 

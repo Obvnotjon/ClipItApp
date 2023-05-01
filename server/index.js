@@ -11,12 +11,16 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
+
 const db = mysql2.createConnection({
     host:"clipit-sm-db.co8sylbqcwmx.us-east-2.rds.amazonaws.com",
     user: "clipitadmin",
     password:"CSE4550SMWA!",
     database:"smdb"
 });
+
+
+
 
 app.get("/", (req, res)=>{
     res.json("hello this is the backend")
@@ -82,9 +86,22 @@ app.post("/signup", (req, res) => {
     });
 });
 
+/*
 app.get("/posts", (req, res) => {
     const q = "SELECT * FROM posts WHERE userId = (?)";
 })
+*/
+
+app.get("/getposts", (req, res) => {
+    const q = "SELECT p.*, u.id AS userId, name, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId)"
+
+    db.query(q, (err, data) => {
+        if (err) {
+            return res.status(500).json(err);
+        }
+        return res.status(200).json(data);
+    });
+});
 
 app.post("/create", (req, res) => {
     const token = req.cookies.access_token;
@@ -113,7 +130,7 @@ app.post("/create", (req, res) => {
                 console.log("Post created")
                 res.status(200).send("Post created")
             }
-    }})
+    }});
 });
 
 app.get("/retrieve", (req, res) => {
@@ -128,7 +145,7 @@ app.get("/retrieve", (req, res) => {
             console.log("Posts retrieved")
             res.status(200).send(data)
         }
-    })
+    });
 });
 
 app.get("/signup", (req, res) => {
@@ -136,7 +153,7 @@ app.get("/signup", (req, res) => {
     db.query(q, (err, data)=>{
         if(err) return res.json(err)
         return res.json(data)
-    })
+    });
 });
 
 app.post("/update", (req, res) => {
@@ -173,8 +190,8 @@ app.post("/update", (req, res) => {
                     res.status(200).send("Profile updated")
                 }
             }
-        })
-        })
+        });
+    });
 });
 
 app.listen(8800, () => {
