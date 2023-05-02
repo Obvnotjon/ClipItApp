@@ -66,7 +66,7 @@ function ClipItNav () {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/login" onClick={logout}>
+                                <a className="nav-link" href="#" onClick={logout}>
                                     {<i className="fa-solid fa-right-from-bracket" 
                                     style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  Log Out
                                 </a>

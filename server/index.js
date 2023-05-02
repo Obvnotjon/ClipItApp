@@ -93,7 +93,53 @@ app.get("/posts", (req, res) => {
 */
 
 app.get("/getposts", (req, res) => {
-    const q = "SELECT p.*, u.id AS userId, name, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId)"
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json("Not logged in")
+
+    jwt.verify(token, "jwtKey", (err, userInfo) => {
+        if (err) return res.status(403).jason("Invalid token")
+
+        const q = `SELECT p.*, u.id AS userId, name, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId) 
+        LEFT JOIN friendsys AS f ON (p.userId = f.followingUserId) WHERE f.followerUserId = ? OR p.userId = ?
+        ORDER BY p.dateCreated DESC`;
+
+        db.query(q, [userInfo.id, userInfo.id ], (err, data) => {
+            if (err) {
+                return res.status(500).json(err);
+            }
+            return res.status(200).json(data);
+        });
+    });
+});
+
+app.post("/addpost", (req, res) => {
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json("Not logged in")
+
+    jwt.verify(token, "jwtKey", (err, userInfo) => {
+        if (err) return res.status(403).jason("Invalid token")
+
+        const q = "INSERT INTO posts (`postDesc`, `postContent`, `dateCreated`, `userId`) VALUES (?)";
+        const values = [
+            req.body.postDesc,
+            req.body.postContent,
+            moment(Date.now()).format("YYYY-MM-DD HH:mm::ss"),
+            userInfo.id
+        ]
+
+        db.query(q, [ values ], (err, data) => {
+            if (err) {
+                return res.status(500).json(err);
+            }
+            return res.status(200).json("Post created");
+        });
+    });
+});
+
+// This function gets all the posts in the database, but we only want to display posts from friends
+/*
+app.get("/getposts", (req, res) => {
+    const q = "SELECT p.*, u.id AS userId, name, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId)";
 
     db.query(q, (err, data) => {
         if (err) {
@@ -102,6 +148,7 @@ app.get("/getposts", (req, res) => {
         return res.status(200).json(data);
     });
 });
+*/
 
 app.post("/create", (req, res) => {
     const token = req.cookies.access_token;

@@ -12,40 +12,26 @@ function AboutUs() {
       <hr />
       <h2>
         {" "}
-        The ClipIt! app is focusing on creating a platform around gaming,
-        creativity, and content creation with an emphasis on promoting more
-        interactivity and intimacy between users.{" "}
+        What is ClipIt? We are a social media website focused on giving our users an intimate experience
+        where they can interact with their friends and share their favorite gaming clips or moments. We aim
+        to inspire creativity by offering users more customization features to express their personality online.
+        We also aim to keep things simple and remove any corporate influence that ruins the intimate user 
+        experience like shallow ads or sponsorships that clutter your feeds on other platforms. 
+        {" "}
       </h2>
       <hr />
 
       {/* First member of the team  */}
-      <div className="row">
+      <div className="row" style={{minwidth: "150px"}}>
         <div className="column" id="gfg">
           <div className="card">
             {/* <i className="fa fa-user-circle" style={{ fontSize: "68px" }}></i> */}
             <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
 
-            <div className="container">
+            <div className="about-container">
               <h2>Bryan Chavez</h2>
 
-              <p>Role Here</p>
-
-              {/* <img src=""> */}
-              {/* <p></p> */}
-              {/* <button className="button">View</button> */}
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="card">
-            {/*  <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
-            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
-            <div className="container">
-              <h2>Duncan Foutz</h2>
-
-              <p>Role Here</p>
-
-              <p></p>
+              <p>Product Manager/QA Tester</p>
 
               {/* <img src=""> */}
               {/* <p></p> */}
@@ -57,10 +43,42 @@ function AboutUs() {
           <div className="card">
             {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
             <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
-            <div className="container">
+            <div className="about-container">
+              <h2>Jonathan Reyna</h2>
+
+              <p>Assistant Product Manager/Fullstack Developer</p>
+
+              {/* <p></p> */}
+              {/* <img src="">
+                          <p></p> */}
+              {/* <button className="button">View</button> */}
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="card">
+            {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
+            <div className="about-container">
+              <h2>Fernando Nunez</h2>
+
+              <p>Fullstack Developer</p>
+
+              <p></p>
+              {/* <img src="">
+                  <p></p> */}
+              {/* <button className="button">View</button> */}
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="card">
+            {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
+            <div className="about-container">
               <h2>Cynthia Ibarra</h2>
 
-              <p>Role Here</p>
+              <p>Frontend Developer</p>
 
               <p></p>
 
@@ -78,10 +96,10 @@ function AboutUs() {
           <div className="card">
             {/* <i className="fa fa-user-circle" style="font-size: 68px"></i>*/}
             <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
-            <div className="container">
+            <div className="about-container">
               <h2>Tré Mitchell</h2>
 
-              <p>Role Here</p>
+              <p>Frontend Developer</p>
 
               <p></p>
               {/* <img src="">
@@ -90,30 +108,15 @@ function AboutUs() {
             </div>
           </div>
         </div>
-        <div className="column">
-          <div className="card">
-            {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
-            <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
-            <div className="container">
-              <h2>Fernando Nunez</h2>
-
-              <p>Role Here</p>
-
-              <p></p>
-              {/* <img src="">
-                  <p></p> */}
-              {/* <button className="button">View</button> */}
-            </div>
-          </div>
-        </div>
+        
         <div className="column">
           <div className="card">
             {/* <i className="fa fa-user-circle" style="font-size: 68px"></i>  */}
             <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
-            <div className="container">
+            <div className="about-container">
               <h2>Tani Ordaz</h2>
 
-              <p>Role Here</p>
+              <p>Frontend Developer</p>
 
               <p></p>
               {/* <img src="">
@@ -123,25 +126,24 @@ function AboutUs() {
           </div>
         </div>
       </div>
-
-      <div className="row">
-        <div className="column">
+      <div className="column">
           <div className="card">
-            {/* <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
+            {/*  <i className="fa fa-user-circle" style="font-size: 68px"></i> */}
             <FontAwesomeIcon className="fa" icon={faUserCircle} size="4x" />
-            <div className="container">
-              <h2>Jon Reyna</h2>
+            <div className="about-container">
+              <h2>Duncan Foutz</h2>
 
               <p>Role Here</p>
 
+              <p></p>
+
+              {/* <img src=""> */}
               {/* <p></p> */}
-              {/* <img src="">
-                          <p></p> */}
               {/* <button className="button">View</button> */}
             </div>
           </div>
-        </div>
       </div>
+
     </>
   );
 }

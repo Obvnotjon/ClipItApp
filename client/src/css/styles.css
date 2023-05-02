@@ -75,3 +75,12 @@ body {
 .row {
   margin: 0 auto;
 }
+
+.makepost-card {
+  text-align: center;
+  background-color: #2929293a;
+  color:  white;
+  max-width: 800px;
+  min-height: 300px;
+
+}
