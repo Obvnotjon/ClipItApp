@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import mysql2 from "mysql2";
 import cors from "cors";
 import moment from "moment";
+import multer from "multer";
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,25 @@ const db = mysql2.createConnection({
 });
 
 
+//replace this with whatever is gonna be used for file upload cloud service
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../client/public/upload");
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname);
+    },
+})
+
+//This function will also be modified once we find file service
+const upload = multer({ storage: storage});
+
+
+//This stays the same
+app.post("/upload", upload.single("file"), (req, res) =>{
+    const file= req.file;
+    res.status(200).json(file.filename);
+});
 
 
 app.get("/", (req, res)=>{
@@ -101,6 +121,26 @@ app.get("/getposts", (req, res) => {
 
         const q = `SELECT p.*, u.id AS userId, name, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId) 
         LEFT JOIN friendsys AS f ON (p.userId = f.followingUserId) WHERE f.followerUserId = ? OR p.userId = ?
+        ORDER BY p.dateCreated DESC`;
+
+        db.query(q, [userInfo.id, userInfo.id ], (err, data) => {
+            if (err) {
+                return res.status(500).json(err);
+            }
+            return res.status(200).json(data);
+        });
+    });
+});
+
+app.get("/getmyposts", (req, res) => {
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json("Not logged in")
+
+    jwt.verify(token, "jwtKey", (err, userInfo) => {
+        if (err) return res.status(403).jason("Invalid token")
+
+        const q = `SELECT p.*, u.id AS userId, name, pfp FROM posts AS p 
+        JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ? 
         ORDER BY p.dateCreated DESC`;
 
         db.query(q, [userInfo.id, userInfo.id ], (err, data) => {

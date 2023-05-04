@@ -4,21 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
 import moment from "moment";
 import collapse from "bootstrap";
-import { useState } from "react";
-import Axios from "axios"
+//import { useState } from "react";
+//import Axios from "axios"
 import "./Background.css"
 import PostPfp from "../components/PostPfp";
-
 function Home() {
-    /*
-    const [postContent, setPostContent] = useState("");
-    const [postDesc, setPostDesc] = useState("");
-    const [title, setTitle] = useState("");
-    const [posts, setPosts] = useState([]);
-    const [image, setImage] = useState("");
-    const [dateCreated, setDateCreated] = useState("");
-    */
-
     //makes api request to getposts of users added as friends onto current users main feed
     //allows posts to be loading as new posts are updated, no need for refreshing pages
     const { isLoading, error, data } = useQuery(['posts'], () =>
@@ -26,51 +16,28 @@ function Home() {
         return res.data;
         })
     );
-   
-    //Commented out functions so there is no conflict with tanstack-react-query
-    /*
-    const addPost = () => {
-        Axios.post("/create", {
-            title: title,
-            postContent: postContent,
-            postDesc: postDesc,
-            dateCreated: dateCreated
-        }).then(() => {
-            console.log("Success")
-        })
-    }
-    */
-
-    /*
-    const getPosts = () => {
-        Axios.get("/retrieve").then((response) => {
-            setPosts(response.data)
-        })
-    }
-    */
-
-    
 
     console.log(data);
 
     return (
         <>
-        <div className="custom-bg-container"/>
-        <ClipItNav/>
+        <div className="default-bg-container"/>
+
+            <ClipItNav/>
 
         <div className="posts">
             {error ? "Whoops, unexpected error occured" :
              isLoading ? "loading" :
              data.map((post) =>
                 <div className="post" key={post.id}>
-                    <Container className="d-flex align-items-center justify-content-center" style={{minHeight: "31vh", maxWidth: "900px"}}>
+                    <Container className="d-flex align-items-center justify-content-center" style={{maxWidth: "780px"}}>
                     <Stack>
                     <Card className= "my-post">
                         <Stack 
                         direction="horizontal" 
                         gap={3} 
                         style={{width: '97%', margin: 'auto', 
-                        paddingTop: '1%'}}>
+                        paddingTop: '2%'}}>
 
                             <div className="ms-start"><PostPfp src={post.pfp} alt="pfp"/> {post.name}</div>
                             <div className="ms-auto">{moment(post.dateCreated).fromNow()}</div>
@@ -120,7 +87,6 @@ function Home() {
                 </div>
             )}
         </div>
-        
         </>
     );
 }
