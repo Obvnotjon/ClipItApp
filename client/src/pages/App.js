@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CreatePost from '../components/CreatePost';
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from '../context/PrivateRoute';
 import EditProfile from './EditProfile';
 import MyProfile from './MyProfile';
 import Messages from './Messages';

@@ -2,7 +2,6 @@ import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import Axios from 'axios';
-import "./Background.css";
 
 function Signup() {
         const [username, setUsername] = useState("");

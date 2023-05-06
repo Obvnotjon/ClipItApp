@@ -1,10 +1,13 @@
 import { Form, Button, Card, Container } from 'react-bootstrap';
 import ProfilePicture from '../components/ProfilePicture';
+import { AuthContext } from '../context/authContext';
 import ClipItNav from '../components/ClipItNav';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Axios from 'axios';
 
 function EditProfile() {
+    const { currentUser } = useContext(AuthContext);
+
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
     const [bio, setBio] = useState("");
@@ -25,7 +28,7 @@ function EditProfile() {
         <>
         <div className="default-bg-container"/>
         <ClipItNav/>
-        <h4 className="text-center text-light">Edit Profile</h4>
+        <h4 className="text-center text-light" style={{padding: "1%"}}>Edit Profile</h4>
         <Container
                 className="d-flex align-items-center justify-content-center" 
                 style={{ minHeight: "50vh" }}>
@@ -35,14 +38,8 @@ function EditProfile() {
                 <Card.Body>
                         <br/>
                             <div>
-
-                            <ProfilePicture 
-                            src="/images/blankpfp.jpg" 
-                                alt="pfp" 
-                                id = "pfpic"
-                                >
-                            </ProfilePicture>    
-
+                            {currentUser?.pfp ? <ProfilePicture src={currentUser?.pfp} alt="pfp"/> : 
+                            <ProfilePicture src="images/blankpfp.jpg" alt="pfp"/>}   
                         
                             <input 
                                 type = "file"
@@ -100,9 +97,9 @@ function EditProfile() {
                             <Button 
                                 className="btn btn-sm border-light" 
                                 type="button" 
-                                href="#" 
+                                href="/myprofile" 
                                 role="button"
-                                style={{background: "#263238"}}>Followers
+                                style={{background: "#263238"}}>Cancel Changes
                             </Button>
 
                             <Button 
@@ -110,7 +107,7 @@ function EditProfile() {
                                 type="button" 
                                 href="#" 
                                 role="button"
-                                style={{background: "#263238"}}>Following
+                                style={{background: "#263238"}}>Change Background
                             </Button>
                         </div>
                 </Card.Body>    

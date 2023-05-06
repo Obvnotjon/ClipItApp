@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, Container, Button, Form } from "react-bootstrap";
 import { makeRequest } from "../axios";
 
-function CreatePost () {
+function CreatePost ({setOpenCreate}) {
     const [file, setFile] = useState(null);
     const [postDesc, setPostDesc] = useState("");
     
@@ -11,7 +11,9 @@ function CreatePost () {
         try {
             const formData = new FormData();
             formData.append("file", file)
-            const res = await makeRequest.post("/upload", formData);
+            const res = await makeRequest.post("/upload", formData, {
+                headers: {"Content-Type": "multipart/form-data"}
+            });
             return res.data;
         } catch (err) {
             console.log(err);
@@ -40,7 +42,9 @@ function CreatePost () {
 
     return (
         <>
-            <Container className="d-flex align-items-center justify-content-center" style={{minHeight: "100vh", maxWidth: "900px"}}>
+        <div className="upload-card">
+            <Button onClick={() => setOpenCreate(false)}> X </Button>
+            <Container className="d-flex align-items-center justify-content-center">
                 <Card className="makepost-card">
                     <h4>What moment do you want to share?</h4>
                     <Form.Group className = "form-group input-group">
@@ -58,6 +62,8 @@ function CreatePost () {
                     <Button className="w-100 btn-light" onClick={handleCreate}>Create Post</Button>
                 </Card>
             </Container>
+        </div>
+        
         </>
     )
 

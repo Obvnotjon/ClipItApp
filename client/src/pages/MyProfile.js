@@ -9,10 +9,14 @@ import  { makeRequest } from "../axios";
 import { useQuery } from '@tanstack/react-query';
 import moment from "moment";
 import PostPfp from '../components/PostPfp';
-
+import CreatePost from '../components/CreatePost';
 
 function MyProfile () {
     const { currentUser} = useContext(AuthContext);
+    const [openCreate, setOpenCreate] = useState(false);
+
+
+
     //const [error, setError] = useState("")
     //const navigate = useNavigate()
     const [posts, setPosts] = useState([]);
@@ -59,12 +63,15 @@ function MyProfile () {
             
             <div className="custom-bg-container"/>
             <ClipItNav/>
+
+            {openCreate && <CreatePost setOpenCreate={setOpenCreate}/>}
             <Container className="d-flex align-items-center justify-content-center" style={{minHeight: "31vh", maxWidth: "780px"}}>
                 <Card className="my-post">
                     <Card.Body>
                        <br/>
                         <div>
-                            <ProfilePicture src={currentUser?.pfp} alt="pfp"/>                            
+                        {currentUser?.pfp ? <ProfilePicture src={currentUser?.pfp} alt="pfp"/> : 
+                            <ProfilePicture src="images/blankpfp.jpg" alt="pfp"/>}                            
                         </div>
                         <br/>
                         <h5 className="card-title">{currentUser?.name}</h5>
@@ -79,10 +86,12 @@ function MyProfile () {
                             </Button>
                         </div>        
                     </Card.Body>    
-                </Card>
-
-                
+                </Card>    
             </Container>
+
+            <div className ="d-grid justify-content-md-center">
+                <Button className="btn btn-dark" onClick={() => setOpenCreate(true)}>Create Post</Button>
+            </div>
 
             <div className="posts">
             {error ? "Whoops, unexpected error occured" :
@@ -98,7 +107,8 @@ function MyProfile () {
                         style={{width: '97%', margin: 'auto', 
                         paddingTop: '2%'}}>
 
-                            <div className="ms-start"><PostPfp src={post.pfp} alt="pfp"/> {post.name}</div>
+                            <div className="ms-start">{post.pfp ? <PostPfp src={post.pfp} alt="pfp"/> : 
+                                <PostPfp src="images/blankpfp.jpg" alt="pfp"/>} {post.name}</div>
                             <div className="ms-auto">{moment(post.dateCreated).fromNow()}</div>
 
                         </Stack>
@@ -128,7 +138,7 @@ function MyProfile () {
                                 </div>
                             </div>
 
-                            <Stack className="d-grid gap-2 d-md-flex justify-content-md-end"
+                            <Stack className="d-grid gap-2 d-md-flex justify-content-md"
                             direction="horizontal" gap={3} 
                             style={{width: '97%', margin: 'auto', 
                             paddingTop: '.5%', paddingBottom: '.5%'}}>
@@ -145,9 +155,7 @@ function MyProfile () {
                     </Container>
                 </div>
             )}
-        </div>
-            
-                 
+        </div>     
         </>
     );
 }

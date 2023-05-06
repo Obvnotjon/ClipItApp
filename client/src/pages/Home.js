@@ -6,7 +6,7 @@ import moment from "moment";
 import collapse from "bootstrap";
 //import { useState } from "react";
 //import Axios from "axios"
-import "./Background.css"
+import "../css/Background.css"
 import PostPfp from "../components/PostPfp";
 function Home() {
     //makes api request to getposts of users added as friends onto current users main feed
@@ -21,7 +21,7 @@ function Home() {
 
     return (
         <>
-        <div className="default-bg-container"/>
+        <div className="custom-bg-container"/>
 
             <ClipItNav/>
 
@@ -39,7 +39,10 @@ function Home() {
                         style={{width: '97%', margin: 'auto', 
                         paddingTop: '2%'}}>
 
-                            <div className="ms-start"><PostPfp src={post.pfp} alt="pfp"/> {post.name}</div>
+                            <div className="ms-start">
+                                {post.pfp ? <PostPfp src={post.pfp} alt="pfp"/> : 
+                                <PostPfp src="images/blankpfp.jpg" alt="pfp"/>} {post.name}
+                            </div>
                             <div className="ms-auto">{moment(post.dateCreated).fromNow()}</div>
 
                         </Stack>

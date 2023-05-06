@@ -16,11 +16,14 @@ function ClipItNav () {
                         <img src="images/clipitwhite.png" alt="1" width="125px"/>
                     </a>
                     <div className="offcanvas offcanvas-start " 
-                        style={{ '--bs-offcanvas-width': 'min(95vw, 200px)', background: "#292929", color: "white"}} data-bs-scroll="true" 
+                        style={{ '--bs-offcanvas-width': 'min(95vw, 250px)', background: "#292929", color: "white"}} data-bs-scroll="true" 
                         data-bs-backdrop="false" tabIndex="-1"
                         id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                         <div className="offcanvas-header">
-                        <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel"><PostPfp src={currentUser?.pfp} alt="pfp"/>   {currentUser?.username}</h5>
+                        <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">
+                            {currentUser?.pfp ? <PostPfp src={currentUser?.pfp} alt="pfp"/> : 
+                            <PostPfp src="images/blankpfp.jpg" alt="pfp"/>}{currentUser?.username}
+                        </h5>
                         <button type="button" className="btn-close btn-close-white" 
                             data-bs-dismiss="offcanvas" 
                             aria-label="Close">

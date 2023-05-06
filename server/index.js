@@ -1,3 +1,5 @@
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import {v2 as cloudinary} from "cloudinary";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import express from "express";
@@ -9,6 +11,7 @@ import multer from "multer";
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 
@@ -20,27 +23,57 @@ const db = mysql2.createConnection({
     database:"smdb"
 });
 
+cloudinary.config({
+    cloud_name: "dqcjnd8nm",
+    api_key: "224925634256454",
+    api_secret: "aq6ldxh6BBLF7rRgnaYdXI_D9n8"
+  });
 
-//replace this with whatever is gonna be used for file upload cloud service
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "../client/public/upload");
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: 'postMedia',
+      allowed_formats: ['jpg', 'png', 'gif', 'mp4'],
+      public_id: (req, file) => `${Date.now()}_${file.originalname}`
     },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + file.originalname);
-    },
-})
-
-//This function will also be modified once we find file service
-const upload = multer({ storage: storage});
-
-
-//This stays the same
-app.post("/upload", upload.single("file"), (req, res) =>{
-    const file= req.file;
-    res.status(200).json(file.filename);
 });
 
+const upload = multer({ storage: storage});
+
+app.post("/upload", upload.single("file"), (req, res) =>{
+    const file= req.file;
+    cloudinary.uploader.upload(file.path, (err, result) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        const fileUrl = result.secure_url;
+        res.status(200).json(fileUrl);
+    }); 
+});
+
+app.post("/addpost", (req, res) => {
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json("Not logged in")
+
+    jwt.verify(token, "jwtKey", (err, userInfo) => {
+        if (err) return res.status(403).json("Invalid token")
+
+        const q = "INSERT INTO posts (`postDesc`, `postContent`, `dateCreated`, `userId`) VALUES (?)";
+        const values = [
+            req.body.postDesc,
+            req.body.postContent,
+            moment(Date.now()).format("YYYY-MM-DD HH:mm::ss"),
+            userInfo.id
+        ]
+
+        db.query(q, [ values ], (err, data) => {
+            if (err) {
+                return res.status(500).json(err);
+            }
+            return res.status(200).json("Post created");
+        });
+    });
+});
 
 app.get("/", (req, res)=>{
     res.json("hello this is the backend")
@@ -106,12 +139,6 @@ app.post("/signup", (req, res) => {
     });
 });
 
-/*
-app.get("/posts", (req, res) => {
-    const q = "SELECT * FROM posts WHERE userId = (?)";
-})
-*/
-
 app.get("/getposts", (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not logged in")
@@ -119,7 +146,7 @@ app.get("/getposts", (req, res) => {
     jwt.verify(token, "jwtKey", (err, userInfo) => {
         if (err) return res.status(403).jason("Invalid token")
 
-        const q = `SELECT p.*, u.id AS userId, name, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId) 
+        const q = `SELECT DISTINCT p.*, u.id AS userId, name, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId) 
         LEFT JOIN friendsys AS f ON (p.userId = f.followingUserId) WHERE f.followerUserId = ? OR p.userId = ?
         ORDER BY p.dateCreated DESC`;
 
@@ -152,29 +179,31 @@ app.get("/getmyposts", (req, res) => {
     });
 });
 
-app.post("/addpost", (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not logged in")
-
-    jwt.verify(token, "jwtKey", (err, userInfo) => {
-        if (err) return res.status(403).jason("Invalid token")
-
-        const q = "INSERT INTO posts (`postDesc`, `postContent`, `dateCreated`, `userId`) VALUES (?)";
-        const values = [
-            req.body.postDesc,
-            req.body.postContent,
-            moment(Date.now()).format("YYYY-MM-DD HH:mm::ss"),
-            userInfo.id
-        ]
-
-        db.query(q, [ values ], (err, data) => {
-            if (err) {
-                return res.status(500).json(err);
-            }
-            return res.status(200).json("Post created");
-        });
-    });
+app.listen(8800, () => {
+    console.log("Connected to backend server");
 });
+
+/*
+//replace this with whatever is gonna be used for file upload cloud service
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../client/public/upload");
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname);
+    },
+})
+
+//This function will also be modified once we find file service
+const upload = multer({ storage: storage});
+
+
+//This stays the same
+app.post("/upload", upload.single("file"), (req, res) =>{
+    const file= req.file;
+    res.status(200).json(file.filename);
+});
+*/
 
 // This function gets all the posts in the database, but we only want to display posts from friends
 /*
@@ -190,6 +219,7 @@ app.get("/getposts", (req, res) => {
 });
 */
 
+/*
 app.post("/create", (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).send("Access Denied!");
@@ -280,7 +310,4 @@ app.post("/update", (req, res) => {
         });
     });
 });
-
-app.listen(8800, () => {
-    console.log("Connected to backend server");
-});
+*/
