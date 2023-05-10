@@ -7,14 +7,14 @@ function CreatePost ({setOpenCreate}) {
     const [file, setFile] = useState(null);
     const [postDesc, setPostDesc] = useState("");
     
+    //makes API req to cloudinary to upload file and return url
     const upload = async () => {
         try {
             const formData = new FormData();
             formData.append("file", file)
-            const res = await makeRequest.post("/upload", formData, {
-                headers: {"Content-Type": "multipart/form-data"}
-            });
-            return res.data;
+            const res = await makeRequest.post("/upload", formData);
+            const contentUrl = res.data;
+            return contentUrl;
         } catch (err) {
             console.log(err);
         }
@@ -22,7 +22,7 @@ function CreatePost ({setOpenCreate}) {
 
     const QueryClient = useQueryClient();
 
-    //Leave this alone
+    //makes API req to db to add post and reload current posts shown
     const mutation = useMutation((newPost) => {
         return makeRequest.post("/addpost", newPost);
     }, {
@@ -31,11 +31,12 @@ function CreatePost ({setOpenCreate}) {
         }
     });
 
+    //Handles post creation functions on btn click
     const handleCreate = async (e) => {
         e.preventDefault();
-        let imgUrl = "";
-        if (file) imgUrl = await upload();
-        mutation.mutate({ postDesc, postContent: imgUrl });
+        let contentUrl = "";
+        if (file) contentUrl = await upload();
+        mutation.mutate({ postDesc, postContent: contentUrl });
         setPostDesc("");
         setFile(null);
     };
@@ -55,8 +56,7 @@ function CreatePost ({setOpenCreate}) {
                         onChange={(e) => setPostDesc(e.target.value)} required />
                     </Form.Group>
                     <Form.Group className = "form-group input-group">
-                        <input className = "form-control-sm border border-1" 
-                        type="file" name="file" id="file" 
+                        <input type="file" name="file" id="file" accept="video/*, image/*"
                         onChange={(e) => setFile(e.target.files[0])} required/>
                     </Form.Group>
                     <Button className="w-100 btn-light" onClick={handleCreate}>Create Post</Button>

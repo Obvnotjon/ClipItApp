@@ -45,7 +45,7 @@ function ClipItNav () {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/myprofile">
+                                <a className="nav-link" href="/profile">
                                     {<i className="fa-solid fa-address-card" 
                                     style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  Profile
                                 </a>

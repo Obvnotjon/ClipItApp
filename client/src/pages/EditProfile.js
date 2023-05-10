@@ -97,7 +97,7 @@ function EditProfile() {
                             <Button 
                                 className="btn btn-sm border-light" 
                                 type="button" 
-                                href="/myprofile" 
+                                href="/profile" 
                                 role="button"
                                 style={{background: "#263238"}}>Cancel Changes
                             </Button>
@@ -121,7 +121,7 @@ function EditProfile() {
             className = "btn border-light center"
             style = {{margin: "100px", background: "#263238"}}
             type = "submit"
-            href = "/myprofile"
+            href = "/profile"
             role = "button">{<i className="fa-solid fa-gear" 
             style={{color: "#E8E2E2", padding: "3px 1px",}}></i>}  Save changes
         </Button>

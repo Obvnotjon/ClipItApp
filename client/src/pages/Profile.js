@@ -1,63 +1,39 @@
-import  ProfilePicture  from '../components/ProfilePicture';
 import { Card, Button, Container, Stack, Image, Form } from 'react-bootstrap';
+import  ProfilePicture  from '../components/ProfilePicture';
+import { useInView } from "react-intersection-observer";
 import { AuthContext } from "../context/authContext";
-import ClipItNav from '../components/ClipItNav';
 import React, { useContext, useState } from 'react';
-import collapse from "bootstrap";
-import Axios from 'axios';
-import  { makeRequest } from "../axios";
-import { useQuery } from '@tanstack/react-query';
-import moment from "moment";
-import PostPfp from '../components/PostPfp';
 import CreatePost from '../components/CreatePost';
+import { useQuery } from '@tanstack/react-query';
+import ClipItNav from '../components/ClipItNav';
+import { useLocation } from 'react-router-dom';
+import PostPfp from '../components/PostPfp';
+import  { makeRequest } from "../axios";
+import ReactPlayer from "react-player";
+import collapse from "bootstrap";
+import moment from "moment";
+import Axios from 'axios';
 
-function MyProfile () {
-    const { currentUser} = useContext(AuthContext);
+function Profile () {
+    const { currentUser } = useContext(AuthContext);
     const [openCreate, setOpenCreate] = useState(false);
 
-
-
+    //const namePath = parseInt(useLocation().pathname.split("/"),[2]);
     //const [error, setError] = useState("")
     //const navigate = useNavigate()
-    const [posts, setPosts] = useState([]);
-    const [title, getTitle] = useState(currentUser?.title);
-    const [postContent, getPostContent] = useState(currentUser?.postContent);
-    const [desc, getDesc] = useState(currentUser?.desc);
-    const [dateCreated, getDateCreated] = useState(currentUser?.dateCreated);
+    //const [posts, setPosts] = useState([]);
+    //const [title, getTitle] = useState(currentUser?.title);
+    //const [postContent, getPostContent] = useState(currentUser?.postContent);
+    //const [desc, getDesc] = useState(currentUser?.desc);
+    //const [dateCreated, getDateCreated] = useState(currentUser?.dateCreated);
 
 
-    const { isLoading, error, data } = useQuery(["getmyposts"], () =>
+    const { isLoading, error, data } = useQuery(["posts"], () =>
         makeRequest.get("/getmyposts").then((res) => {
         return res.data;
         })
     );
-/*
-<div style={{backgroundColor: "white", width: "1000px", margin: "auto"}}>
-                <h4> title </h4>
-                <div> {postContent} </div>
-                <div> {dateCreated} </div>
-                <div> {desc} </div>
-            </div>
 
-<div className="feed">
-                <Stack gap={4} style={{ padding: '25%'}}>
-                    {posts.map((post) => {
-                        return (
-                            <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={post.postContent} />
-                                <Card.Body>
-                                    <Card.Title>{post.title}</Card.Title>
-                                    <Card.Text>
-                                        {post.desc}
-                                    </Card.Text>
-                                    <Button variant="primary">Go somewhere</Button>
-                                </Card.Body>
-                            </Card>
-                        )
-                    })}
-                </Stack>
-            </div> 
-*/
     return (
         <>
             
@@ -112,18 +88,27 @@ function MyProfile () {
                             <div className="ms-auto">{moment(post.dateCreated).fromNow()}</div>
 
                         </Stack>
-                        <Image src={post.postContent}
-                        
-                        fluid
-                        rounded
-                        style={{padding: '2%', paddingBottom: '.5%'}}/>
+
+                        {post.postContent.endsWith('.mp4') ? (
+                                <ReactPlayer
+                                url={post.postContent}
+                                width="100%"
+                                height="auto"
+                                controls={true}
+                                controlsList="nodownload"
+                                volume={0.5}
+                                style={{ padding: '2%', paddingBottom: '.5%' }}
+                                />
+                            ) : (
+                                <Image src={post.postContent} fluid rounded
+                                 style={{ padding: '2%', paddingBottom: '.5%' }} />
+                            )
+                        }
 
                         <Stack direction="horizontal" gap={3} 
                         style={{width: '96%', margin: 'auto', 
                         paddingBottom: '.5%'}}>
-                            
                             <Card.Title>{post.postDesc}</Card.Title>
-                            
                         </Stack>
                         <Form>
                             <div 
@@ -159,4 +144,4 @@ function MyProfile () {
         </>
     );
 }
-export default MyProfile;
+export default Profile;

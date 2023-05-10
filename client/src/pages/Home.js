@@ -1,13 +1,16 @@
 import { Card, Stack, Image, Form, Button, Container } from "react-bootstrap";
-import ClipItNav from "../components/ClipItNav";
+import { useInView } from "react-intersection-observer";
 import { useQuery } from "@tanstack/react-query";
-import { makeRequest } from "../axios";
-import moment from "moment";
-import collapse from "bootstrap";
-//import { useState } from "react";
-//import Axios from "axios"
-import "../css/Background.css"
+import ClipItNav from "../components/ClipItNav";
 import PostPfp from "../components/PostPfp";
+import { makeRequest } from "../axios";
+import ReactPlayer from "react-player";
+import { useState } from "react";
+import collapse from "bootstrap";
+import "../css/Background.css";
+import moment from "moment";
+//import Axios from "axios"
+
 function Home() {
     //makes api request to getposts of users added as friends onto current users main feed
     //allows posts to be loading as new posts are updated, no need for refreshing pages
@@ -23,7 +26,7 @@ function Home() {
         <>
         <div className="custom-bg-container"/>
 
-            <ClipItNav/>
+        <ClipItNav/>
 
         <div className="posts">
             {error ? "Whoops, unexpected error occured" :
@@ -46,19 +49,29 @@ function Home() {
                             <div className="ms-auto">{moment(post.dateCreated).fromNow()}</div>
 
                         </Stack>
-                        <Image src={post.postContent}
                         
-                        fluid
-                        rounded
-                        style={{padding: '2%', paddingBottom: '.5%'}}/>
+                        {post.postContent.endsWith('.mp4') ? (
+                                <ReactPlayer
+                                url={post.postContent}
+                                width="100%"
+                                height="auto"
+                                controls={true}
+                                controlsList="nodownload"
+                                volume={0.5}
+                                style={{ padding: '2%', paddingBottom: '.5%' }}
+                                />
+                            ) : (
+                                <Image src={post.postContent} fluid rounded
+                                 style={{ padding: '2%', paddingBottom: '.5%' }} />
+                            )
+                        }
 
                         <Stack direction="horizontal" gap={3} 
                         style={{width: '96%', margin: 'auto', 
-                        paddingBottom: '.5%'}}>
-                            
+                        paddingBottom: '.5%'}}>   
                             <Card.Title>{post.postDesc}</Card.Title>
-                            
                         </Stack>
+
                         <Form>
                             <div 
                             style={{width: '97%', margin: 'auto', overflow: 'hidden'}}>

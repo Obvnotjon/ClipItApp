@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 
-
+//init db connection
 const db = mysql2.createConnection({
     host:"clipit-sm-db.co8sylbqcwmx.us-east-2.rds.amazonaws.com",
     user: "clipitadmin",
@@ -23,26 +23,32 @@ const db = mysql2.createConnection({
     database:"smdb"
 });
 
+//Declare file storage connection info
 cloudinary.config({
     cloud_name: "dqcjnd8nm",
     api_key: "224925634256454",
     api_secret: "aq6ldxh6BBLF7rRgnaYdXI_D9n8"
   });
 
+ //Create a new storage folder within Cloudinary 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
       folder: 'postMedia',
       allowed_formats: ['jpg', 'png', 'gif', 'mp4'],
-      public_id: (req, file) => `${Date.now()}_${file.originalname}`
+      public_id: (req, file) => `${Date.now()}_${file.originalname}`,
+      resource_type: "auto"
     },
 });
 
-const upload = multer({ storage: storage});
 
+//Use multer for uploading files to file storage
+const upload = multer({ storage: storage });
+
+//Makes req to Cloudinary to upload file into Cloudinary and return Url
 app.post("/upload", upload.single("file"), (req, res) =>{
     const file= req.file;
-    cloudinary.uploader.upload(file.path, (err, result) => {
+    cloudinary.uploader.upload(file.path, { resource_type: "auto" }, (err, result) => {
         if (err) {
             return res.status(500).send(err);
         }
@@ -51,6 +57,7 @@ app.post("/upload", upload.single("file"), (req, res) =>{
     }); 
 });
 
+//makes req to db to add post info into posts table
 app.post("/addpost", (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not logged in")
@@ -75,6 +82,12 @@ app.post("/addpost", (req, res) => {
     });
 });
 
+/*Not Done Implementing yet
+app.put("/update", (req, res) => {
+    const token= req.cookies.access_token;
+    if(!token) return res.status(401).json("Not logged in");
+});
+*/
 app.get("/", (req, res)=>{
     res.json("hello this is the backend")
 });
@@ -139,6 +152,7 @@ app.post("/signup", (req, res) => {
     });
 });
 
+//Retrieves post data of all friends current user has added
 app.get("/getposts", (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not logged in")
@@ -159,6 +173,7 @@ app.get("/getposts", (req, res) => {
     });
 });
 
+//Gets post data of user currently logged in
 app.get("/getmyposts", (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not logged in")
@@ -178,6 +193,7 @@ app.get("/getmyposts", (req, res) => {
         });
     });
 });
+
 
 app.listen(8800, () => {
     console.log("Connected to backend server");

@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CreatePost from '../components/CreatePost';
 import PrivateRoute from '../context/PrivateRoute';
 import EditProfile from './EditProfile';
-import MyProfile from './MyProfile';
+import Profile from './Profile';
 import Messages from './Messages';
 import AboutUs from './AboutUs';
 import Signup from './Signup';
@@ -24,8 +24,8 @@ function App() {
                         element={<PrivateRoute><Home/></PrivateRoute>}/>
                         <Route path="/editprofile"
                         element={<PrivateRoute><EditProfile/></PrivateRoute>}/>
-                        <Route path="/myprofile"
-                        element={<PrivateRoute><MyProfile/></PrivateRoute>}/>
+                        <Route path="/profile"
+                        element={<PrivateRoute><Profile/></PrivateRoute>}/>
                         <Route path="/messages" 
                         element={<PrivateRoute><Messages/></PrivateRoute>}/>
                         
