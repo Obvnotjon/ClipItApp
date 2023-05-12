@@ -44,10 +44,24 @@ function CreatePost ({setOpenCreate}) {
     return (
         <>
         <div className="upload-card">
-            <Button onClick={() => setOpenCreate(false)}> X </Button>
+            <Button className = "btn btn-dark border-white" onClick={() => setOpenCreate(false)}>
+            {<i className="fa-sharp fa-solid fa-xmark" style = {{color: "#ffffff"}}></i>}
+            </Button>
             <Container className="d-flex align-items-center justify-content-center">
                 <Card className="makepost-card">
                     <h4>What moment do you want to share?</h4>
+                    <br/>
+                    <div 
+                    className = "image-preview"
+                    >
+                        <img 
+                        id = "chosen-image"
+                        src = "images/Img-prev.jpg" 
+                        alt = "img-prev" 
+                        style = {{height: "10%", width: "100%", border: "1px solid #fff"}}>
+                        </img>    
+
+                    </div>
                     <Form.Group className = "form-group input-group">
                         <i className="fa-solid fa-pencil" style={{color: "#212121", padding: "15px 11px", background: "#BCC0C0"}}/>
                         <Form.Control className = "form-control-sm border border-1" 
@@ -55,11 +69,19 @@ function CreatePost ({setOpenCreate}) {
                         placeholder="Type a caption" value={postDesc} 
                         onChange={(e) => setPostDesc(e.target.value)} required />
                     </Form.Group>
+                    <br/>
                     <Form.Group className = "form-group input-group">
                         <input type="file" name="file" id="file" accept="video/*, image/*"
-                        onChange={(e) => setFile(e.target.files[0])} required/>
+                        style={{display: "none"}} onChange={(e) => setFile(e.target.files[0])} required/>
+
+                    <label htmlFor="file" className = "rounded"
+                    style = {{ display: "block", width: "100%", height: "5%",
+                    border: "1px solid white", background: "#202328", color: "fff", padding: "1%"
+                    }}> Select File
+                    </label>
                     </Form.Group>
-                    <Button className="w-100 btn-light" onClick={handleCreate}>Create Post</Button>
+                    <br/>
+                    <Button className="w-100 btn-dark border-white" onClick={handleCreate}>Create Post</Button>
                 </Card>
             </Container>
         </div>

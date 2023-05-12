@@ -24,7 +24,7 @@ function App() {
                         element={<PrivateRoute><Home/></PrivateRoute>}/>
                         <Route path="/editprofile"
                         element={<PrivateRoute><EditProfile/></PrivateRoute>}/>
-                        <Route path="/profile"
+                        <Route path="/profile/:username"
                         element={<PrivateRoute><Profile/></PrivateRoute>}/>
                         <Route path="/messages" 
                         element={<PrivateRoute><Messages/></PrivateRoute>}/>

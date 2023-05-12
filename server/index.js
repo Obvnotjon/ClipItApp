@@ -82,12 +82,31 @@ app.post("/addpost", (req, res) => {
     });
 });
 
-/*Not Done Implementing yet
-app.put("/update", (req, res) => {
+
+/*
+//Updates user info from edit profile page
+app.put("/updateuser", (req, res) => {
     const token= req.cookies.access_token;
     if(!token) return res.status(401).json("Not logged in");
+
+    jwt.verify(token, "jwtkey", (err, userInfo) => {
+        if (err) return res.status(500).json("Invalid token")
+
+        const q = "UPDATE users SET `name` = ?, `bio` = ?, `pfp` = ?, `banner` = ?, bgcover` = ? WHERE id = ?";
+        const values = [ req.body.name, req.body.bio, req.body.pfp, req.body.banner, req.body.bgcover];
+        db.query(q, [ values ], (err, data) => {
+            if (err) {
+                return res.status(500).json(err);
+            }
+            if (data.affectedRows > 0) {
+                return res.json("User updated")
+            }
+            
+        });
+    });
 });
 */
+
 app.get("/", (req, res)=>{
     res.json("hello this is the backend")
 });
@@ -160,7 +179,7 @@ app.get("/getposts", (req, res) => {
     jwt.verify(token, "jwtKey", (err, userInfo) => {
         if (err) return res.status(403).jason("Invalid token")
 
-        const q = `SELECT DISTINCT p.*, u.id AS userId, name, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId) 
+        const q = `SELECT DISTINCT p.*, u.id AS userId, name, username, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId) 
         LEFT JOIN friendsys AS f ON (p.userId = f.followingUserId) WHERE f.followerUserId = ? OR p.userId = ?
         ORDER BY p.dateCreated DESC`;
 
@@ -173,19 +192,20 @@ app.get("/getposts", (req, res) => {
     });
 });
 
+/*
 //Gets post data of user currently logged in
 app.get("/getmyposts", (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not logged in")
 
     jwt.verify(token, "jwtKey", (err, userInfo) => {
-        if (err) return res.status(403).jason("Invalid token")
+        if (err) return res.status(403).json("Invalid token")
 
-        const q = `SELECT p.*, u.id AS userId, name, pfp FROM posts AS p 
+        const q = `SELECT p.*, u.id AS userId, username, name, pfp FROM posts AS p 
         JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ? 
         ORDER BY p.dateCreated DESC`;
 
-        db.query(q, [userInfo.id, userInfo.id ], (err, data) => {
+        db.query(q, [userInfo.id], (err, data) => {
             if (err) {
                 return res.status(500).json(err);
             }
@@ -193,33 +213,45 @@ app.get("/getmyposts", (req, res) => {
         });
     });
 });
+*/
+
+app.get("/getuserposts/:username", (req, res) => {
+    const { username } = req.params;
+
+    const q = `SELECT p.*, u.id AS userId, username, name, pfp FROM posts AS p 
+    JOIN users AS u ON (u.id = p.userId) WHERE u.username = ? 
+    ORDER BY p.dateCreated DESC`;
+
+    db.query(q, [ username ], (err, data) => {
+        if (err) {
+            return res.status(500).json(err);
+        }
+        return res.status(200).json(data);
+    });
+});
+
+//Gets profile card data for url of profile/username 
+app.get("/getprofile/:username", (req, res) => {
+    const { username } = req.params;
+    const q = "SELECT * FROM users WHERE username = ?";
+        
+    db.query(q, [ username ], (err, results) => {
+        if (err) {
+            return res.status(500).json(err);
+        }
+        if (results.length === 0) {
+            res.status(404).json("User Not Found");
+            return;
+        }
+        const {password, email, ...userInfo} = results[0];
+        return res.status(200).json(userInfo);
+    });
+});
 
 
 app.listen(8800, () => {
     console.log("Connected to backend server");
 });
-
-/*
-//replace this with whatever is gonna be used for file upload cloud service
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "../client/public/upload");
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + file.originalname);
-    },
-})
-
-//This function will also be modified once we find file service
-const upload = multer({ storage: storage});
-
-
-//This stays the same
-app.post("/upload", upload.single("file"), (req, res) =>{
-    const file= req.file;
-    res.status(200).json(file.filename);
-});
-*/
 
 // This function gets all the posts in the database, but we only want to display posts from friends
 /*

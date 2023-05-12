@@ -1,39 +1,32 @@
-import { Card, Stack, Image, Form, Button, Container } from "react-bootstrap";
+import { Card, Button, Container, Stack, Image, Form } from 'react-bootstrap';
 import { useInView } from "react-intersection-observer";
-import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import ClipItNav from "../components/ClipItNav";
-import PostPfp from "../components/PostPfp";
-import { makeRequest } from "../axios";
+import { AuthContext } from "../context/authContext";
+import React, { useContext, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import PostPfp from '../components/PostPfp';
+import  { makeRequest } from "../axios";
 import ReactPlayer from "react-player";
-import { useState } from "react";
-import collapse from "bootstrap";
-import "../css/Background.css";
 import moment from "moment";
-//import Axios from "axios"
+import { useParams } from 'react-router-dom';
 
-function Home() {
-    //makes api request to getposts of users added as friends onto current users main feed
-    //allows posts to be loading as new posts are updated, no need for refreshing pages
-    const { isLoading, error, data } = useQuery(['posts'], () =>
-        makeRequest.get("/getposts").then((res) => {
+
+function ProfilePosts () {
+    const { currentUser } = useContext(AuthContext);
+    const { username } = useParams();
+
+    const { isLoading, error, data } = useQuery(["posts", username], () =>
+        makeRequest.get(`/getuserposts/${username}`).then((res) => {
         return res.data;
         })
     );
-
-    console.log(data);
-
     return (
-        <>
-        <div className="default-bg-container"/>
-        <ClipItNav/>
-
+        <> 
         <div className="posts">
             {error ? "Whoops, unexpected error occured" :
              isLoading ? "loading" :
              data.map((post) =>
                 <div className="post" key={post.id}>
-                    <Container className="d-flex align-items-center justify-content-center" style={{maxWidth: "780px"}}>
+                    <Container className="d-flex align-items-center justify-content-center" style={{ maxWidth: "780px" }}>
                     <Stack>
                     <Card className= "my-post">
                         <Stack 
@@ -42,18 +35,12 @@ function Home() {
                         style={{width: '97%', margin: 'auto', 
                         paddingTop: '2%'}}>
 
-                            <div className="ms-start">
-                                {post.pfp ? <PostPfp src={post.pfp} alt="pfp"/> : 
-                                <PostPfp src="images/blankpfp.jpg" alt="pfp"/>}
-                                    <Link to={`/profile/${post.username}`}
-                                    style={{textDecoration: "none", color: "inherit"}}>
-                                        {post.name}
-                                    </Link> 
-                            </div>
+                            <div className="ms-start">{post.pfp ? <PostPfp src={post.pfp} alt="pfp"/> : 
+                                <PostPfp src="/images/blankpfp.jpg" alt="pfp"/>} {post.name}</div>
                             <div className="ms-auto">{moment(post.dateCreated).fromNow()}</div>
 
                         </Stack>
-                        
+
                         {post.postContent.endsWith('.mp4') ? (
                                 <ReactPlayer
                                 url={post.postContent}
@@ -72,10 +59,9 @@ function Home() {
 
                         <Stack direction="horizontal" gap={3} 
                         style={{width: '96%', margin: 'auto', 
-                        paddingBottom: '.5%'}}>   
+                        paddingBottom: '.5%'}}>
                             <Card.Title>{post.postDesc}</Card.Title>
                         </Stack>
-
                         <Form>
                             <div 
                             style={{width: '97%', margin: 'auto', overflow: 'hidden'}}>
@@ -89,7 +75,7 @@ function Home() {
                                 </div>
                             </div>
 
-                            <Stack className="d-grid gap-2 d-md-flex justify-content-md-end"
+                            <Stack className="d-grid gap-2 d-md-flex justify-content-md"
                             direction="horizontal" gap={3} 
                             style={{width: '97%', margin: 'auto', 
                             paddingTop: '.5%', paddingBottom: '.5%'}}>
@@ -106,9 +92,9 @@ function Home() {
                     </Container>
                 </div>
             )}
-        </div>
+        </div> 
         </>
-    );
+    )
 }
 
-export default Home;
+export default ProfilePosts;

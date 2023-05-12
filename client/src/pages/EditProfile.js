@@ -1,29 +1,24 @@
 import { Form, Button, Card, Container } from 'react-bootstrap';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ProfilePicture from '../components/ProfilePicture';
 import { AuthContext } from '../context/authContext';
 import ClipItNav from '../components/ClipItNav';
 import { useState, useContext } from 'react';
+import { makeRequest } from '../axios';
 import Axios from 'axios';
 
 function EditProfile() {
     const { currentUser } = useContext(AuthContext);
 
+    
+    const [pfp, setPfp] = useState(null);
     const [name, setName] = useState("");
-    const [username, setUsername] = useState("");
     const [bio, setBio] = useState("");
     const [error, setError] = useState(null);
 
-    const updateUserInfo = () => {
-        Axios.post("/update", {
-            name: name,
-            username: username,
-            bio: bio,
-        }).then(() => {
-            console.log("Success");
-        }).catch((error) => {
-            setError(error.response.data);
-        });
-    }
+
+    
+
     return (
         <>
         <div className="default-bg-container"/>
@@ -43,11 +38,10 @@ function EditProfile() {
                         
                             <input 
                                 type = "file"
-                                accept = "image/jpg, image/png, image/jpeg"
+                                accept = "image/jpg, image/png, image/jpeg, image/gif"
                                 id = "input-file"
-                                style= {{display: "none"}}>
-                                
-                                
+                                style= {{display: "none"}}
+                                onChange= {(e) => setPfp(e.target.files[0])}>
                             </input>   
 
                             <label htmlFor = "input-file" 
@@ -71,14 +65,16 @@ function EditProfile() {
                         <br/>
 
                 <Form.Group 
-                            id="profilename"
+                            id="name"
                             className = "form-group input-group">
     
                         <Form.Control
                         className = {"form-control"}     
                         type="text" 
-                        name="profilename" 
+                        name="name" 
+                        value={name}
                         placeholder = "Profile Name"
+                        onChange={(e) => setName(e.target.value)}
                         />
                 </Form.Group>
                 <div className="row mt-3"></div>
@@ -121,12 +117,64 @@ function EditProfile() {
             className = "btn border-light center"
             style = {{margin: "100px", background: "#263238"}}
             type = "submit"
-            href = "/profile"
             role = "button">{<i className="fa-solid fa-gear" 
             style={{color: "#E8E2E2", padding: "3px 1px",}}></i>}  Save changes
         </Button>
         </>
     );
 }
+
+/*
+const [bgCover, setCover] = useState(null);
+    const [username, setUsername] = useState("");
+    
+     const upload = async () => {
+        try {
+            const formData = new FormData();
+            formData.append("file", file)
+            const res = await makeRequest.post("/upload", formData);
+            const contentUrl = res.data;
+            return contentUrl;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const QueryClient = useQueryClient();
+
+    //makes API req to db to add post and reload current posts shown
+    const mutation = useMutation((user) => {
+        return makeRequest.put("/updateuser", user);
+    }, {
+        onSuccess: () => {
+            QueryClient.invalidateQueries(["user"]);
+        }
+    });
+
+    //Handles post creation functions on btn click
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        let coverUrl = ;
+        if (file) coverUrl = await upload();
+        mutation.mutate({ postDesc, postContent: contentUrl });
+        setPostDesc("");
+        setFile(null);
+    };
+*/
+
+    /*
+    const updateUserInfo = () => {
+        Axios.post("/update", {
+            name: name,
+            username: username,
+            bio: bio,
+        }).then(() => {
+            console.log("Success");
+        }).catch((error) => {
+            setError(error.response.data);
+        });
+    }
+    */
+
 
 export default EditProfile;

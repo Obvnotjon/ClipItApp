@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 function ClipItNav () {
     const { currentUser, logout } = useContext(AuthContext);
-
+    
     return (
             <nav className="navbar navbar-dark" style={{background: "#292929"}}>
                 <div className="container-fluid">
@@ -13,7 +13,7 @@ function ClipItNav () {
                         <span className="navbar-toggler-icon"></span>
                     </button> 
                     <a className="navbar-brand" href="/">
-                        <img src="images/clipitwhite.png" alt="1" width="125px"/>
+                        <img src="/images/clipitwhite.png" alt="1" width="125px"/>
                     </a>
                     <div className="offcanvas offcanvas-start " 
                         style={{ '--bs-offcanvas-width': 'min(95vw, 250px)', background: "#292929", color: "white"}} data-bs-scroll="true" 
@@ -22,7 +22,7 @@ function ClipItNav () {
                         <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">
                             {currentUser?.pfp ? <PostPfp src={currentUser?.pfp} alt="pfp"/> : 
-                            <PostPfp src="images/blankpfp.jpg" alt="pfp"/>}{currentUser?.username}
+                            <PostPfp src="/images/blankpfp.jpg" alt="pfp"/>}{currentUser?.username}
                         </h5>
                         <button type="button" className="btn-close btn-close-white" 
                             data-bs-dismiss="offcanvas" 
@@ -45,7 +45,7 @@ function ClipItNav () {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/profile">
+                                <a className="nav-link" href={`/profile/${currentUser?.username}`}>
                                     {<i className="fa-solid fa-address-card" 
                                     style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  Profile
                                 </a>
