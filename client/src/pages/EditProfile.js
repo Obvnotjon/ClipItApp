@@ -1,5 +1,5 @@
-import { Form, Button, Card, Container } from 'react-bootstrap';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Form, Button, Card, Container } from 'react-bootstrap';
 import ProfilePicture from '../components/ProfilePicture';
 import { AuthContext } from '../context/authContext';
 import ClipItNav from '../components/ClipItNav';
@@ -93,9 +93,10 @@ function EditProfile() {
                             <Button 
                                 className="btn btn-sm border-light" 
                                 type="button" 
-                                href="/profile" 
+                                href={`/profile/${currentUser?.username}`} 
                                 role="button"
-                                style={{background: "#263238"}}>Cancel Changes
+                                style={{background: "#263238"}}>
+                                Cancel Changes        
                             </Button>
 
                             <Button 

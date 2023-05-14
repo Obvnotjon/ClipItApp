@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Card, Container, Button, Form } from "react-bootstrap";
+import { Card, Container, Button, Form, Image } from "react-bootstrap";
 import { makeRequest } from "../axios";
 
 function CreatePost ({setOpenCreate}) {
@@ -51,17 +51,16 @@ function CreatePost ({setOpenCreate}) {
                 <Card className="makepost-card">
                     <h4>What moment do you want to share?</h4>
                     <br/>
-                    <div 
-                    className = "image-preview"
-                    >
-                        <img 
-                        id = "chosen-image"
-                        src = "images/Img-prev.jpg" 
-                        alt = "img-prev" 
-                        style = {{height: "10%", width: "100%", border: "1px solid #fff"}}>
-                        </img>    
-
-                    </div>
+                    {file && (file.type.startsWith("image/") ? (
+                        <Image src={URL.createObjectURL(file)} alt=""
+                        style={{ height: "10%", width: "100%",
+                        border: "1px solid #fff" }}/>) : 
+                        file.type.startsWith("video/") ? (
+                        <video src={URL.createObjectURL(file)} alt=""
+                        style={{ height: "10%", width: "100%",
+                         border: "1px solid #fff" }} controls/>) : null
+                    )}
+                              
                     <Form.Group className = "form-group input-group">
                         <i className="fa-solid fa-pencil" style={{color: "#212121", padding: "15px 11px", background: "#BCC0C0"}}/>
                         <Form.Control className = "form-control-sm border border-1" 
@@ -74,11 +73,11 @@ function CreatePost ({setOpenCreate}) {
                         <input type="file" name="file" id="file" accept="video/*, image/*"
                         style={{display: "none"}} onChange={(e) => setFile(e.target.files[0])} required/>
 
-                    <label htmlFor="file" className = "rounded"
-                    style = {{ display: "block", width: "100%", height: "5%",
-                    border: "1px solid white", background: "#202328", color: "fff", padding: "1%"
-                    }}> Select File
-                    </label>
+                        <label htmlFor="file" className = "rounded"
+                        style = {{ display: "block", width: "100%", height: "5%",
+                        border: "1px solid white", background: "#202328", color: "fff", padding: "1%"
+                        }}> Select File
+                        </label>
                     </Form.Group>
                     <br/>
                     <Button className="w-100 btn-dark border-white" onClick={handleCreate}>Create Post</Button>
