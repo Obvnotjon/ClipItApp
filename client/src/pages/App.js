@@ -3,8 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CreatePost from '../components/CreatePost';
 import PrivateRoute from '../context/PrivateRoute';
 import EditProfile from './EditProfile';
-import Profile from './Profile';
 import Messages from './Messages';
+import Friends from './Friends';
+import Profile from './Profile';
 import AboutUs from './AboutUs';
 import Signup from './Signup';
 import Login from './Login';
@@ -26,6 +27,8 @@ function App() {
                         element={<PrivateRoute><EditProfile/></PrivateRoute>}/>
                         <Route path="/profile/:username"
                         element={<PrivateRoute><Profile/></PrivateRoute>}/>
+                        <Route path="/friends/:username"
+                        element={<PrivateRoute><Friends/></PrivateRoute>}/>
                         <Route path="/messages" 
                         element={<PrivateRoute><Messages/></PrivateRoute>}/>
                         

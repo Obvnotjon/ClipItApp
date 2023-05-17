@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import  { makeRequest } from "../axios";
 import ClipItNav from './ClipItNav';
 import { useParams } from 'react-router-dom';
+import FriendCheck from './FriendCheck';
 
 function ProfileCard () {
     const { currentUser } = useContext(AuthContext);
@@ -53,60 +54,40 @@ function ProfileCard () {
                             }
                         </div>
                         <div>
-
                             {data?.pfp ? <ProfilePicture src={data?.pfp} alt="pfp"/> : 
-                            <ProfilePicture src="/images/blankpfp.jpg" alt="pfp"/>}
-
-                            { data?.id === currentUser?.id ?
-                                <Button 
-                                className="btn btn-dark btn-sm border border-white" 
-                                type="button" 
-                                href="/editprofile" 
-                                style = {{padding: "0.3% 5.5%", float: "right", margin: "14% 0% 0%"}}
-                                role="button">Edit Profile
-                                </Button> :
-                                <Button 
-                                className="btn btn-dark btn-sm border border-white" 
-                                type="button" 
-                                href="#" 
-                                style = {{padding: "0.3% 5.5%", float: "right", margin: "14% 0% 0%"}}
-                                role="button">Add Friend
-                                </Button>
-                            }
-                                                         
+                            <ProfilePicture src="/images/blankpfp.jpg" alt="pfp"/>}                             
                         </div>
                         <br/>
                         <div className = "user info">
                             <div style ={{float: "left", width: "70%"}}>
-                                <div className="card-title" style = {{padding: "5px 15px 5px 15px"}}>
+                                <div className="card-title" style = {{padding: "5px 15px 5px 5px"}}>
                                     <h5>{data?.name}</h5>
                                     <h6 style = {{ color: "gray"}}>@{data?.username}</h6>
                                 </div>
                                 <p 
                                 className="card-text"
-                                style = {{padding: "1px 15px 20px"}}
+                                style = {{padding: "5px 15px 20px 5px"}}
                                 ><strong>Bio: </strong>{data?.bio}</p>
                             </div>
                             <div style ={{float: "left", width: "30%"}}>
                                 <div>
+                                    { data?.id === currentUser?.id ?
                                     <Button 
                                     className="btn btn-dark btn-sm border" 
                                     type="button" 
-                                    href="#" 
-                                    style = {{padding: "1% 20%", float: "right", margin: "5% 1%"}}
-                                    role="button">Followers
+                                    href="/editprofile" 
+                                    style = {{padding: "1% 15%", float: "right", margin: "5% 1%"}}
+                                    role="button">Edit Profile
+                                    </Button> : <FriendCheck friendId={data?.id}/>
+                                    }
+                                    <Button 
+                                    className="btn btn-dark btn-sm border" 
+                                    type="button" 
+                                    href={`/friends/${data?.id}`} 
+                                    style = {{padding: "1% 15%", float: "right", margin: "5% 1%"}}
+                                    role="button">Friends List
                                     </Button>
                                 </div> 
-                                <br/>
-                                <div>
-                                    <Button 
-                                    className="btn btn-dark btn-sm border" 
-                                    type="button" 
-                                    href="#" 
-                                    style = {{padding: "1% 20%", float: "right", margin: "5% 1%"}}
-                                    role="button">Following
-                                    </Button>
-                                </div>
                             </div>
                             <div>
                             {data?.id === currentUser?.id ? 

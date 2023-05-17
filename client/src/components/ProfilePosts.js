@@ -3,11 +3,15 @@ import { useInView } from "react-intersection-observer";
 import { AuthContext } from "../context/authContext";
 import React, { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 import PostPfp from '../components/PostPfp';
+import LikeChecker from './LikeChecker';
 import  { makeRequest } from "../axios";
 import ReactPlayer from "react-player";
+import DeletePost from './DeletePost';
+import Comments from './Comments';
+import Comment from './Comment';
 import moment from "moment";
-import { useParams } from 'react-router-dom';
 
 
 function ProfilePosts () {
@@ -38,7 +42,6 @@ function ProfilePosts () {
                             <div className="ms-start">{post.pfp ? <PostPfp src={post.pfp} alt="pfp"/> : 
                                 <PostPfp src="/images/blankpfp.jpg" alt="pfp"/>} {post.name}</div>
                             <div className="ms-auto">{moment(post.dateCreated).fromNow()}</div>
-
                         </Stack>
 
                         {post.postContent.endsWith('.mp4') ? (
@@ -57,36 +60,20 @@ function ProfilePosts () {
                             )
                         }
 
-                        <Stack direction="horizontal" gap={3} 
-                        style={{width: '96%', margin: 'auto', 
-                        paddingBottom: '.5%'}}>
-                            <Card.Title>{post.postDesc}</Card.Title>
-                        </Stack>
-                        <Form>
-                            <div 
-                            style={{width: '97%', margin: 'auto', overflow: 'hidden'}}>
-                                <div className="form-floating col-md-5" style={{color: "#313131"}}>
-                                    <input type="text" className="form-control" 
-                                    id="comment" placeholder="comments" 
-                                    style={{width: '239%', margin: 'auto'}}/>
-                                    <label> 
-                                        Comment 
-                                    </label>
-                                </div>
+                       <Stack direction='horizontal' gap={3}>
+                            <div style={{paddingLeft: "15px"}}>
+                                <LikeChecker postId={post.id}/>
                             </div>
-
-                            <Stack className="d-grid gap-2 d-md-flex justify-content-md"
-                            direction="horizontal" gap={3} 
-                            style={{width: '97%', margin: 'auto', 
-                            paddingTop: '.5%', paddingBottom: '.5%'}}>
-                                <div>
-                                    <i className="fa-solid fa-heart" style={{ padding: "15px 11px"}}/>
-                                </div> 
-                                <Button type="button" className="btn-dark btn-sm ">
-                                    Comment
-                                </Button>
-                            </Stack>
-                        </Form>
+                        {currentUser.id === post.userId && (
+                            <DeletePost postId={post.id}/>
+                        )}
+                        </Stack>
+                    
+                        <div style={{padding: "15px", paddingTop: "5px", paddingBottom: "5px"}}>
+                            <p style={{fontSize: "20px"}}> {post.postDesc} </p>
+                        </div>
+                        <Comment postId={post.id}/>
+                        <Comments postId={post.id}/> 
                     </Card>
                     </Stack>
                     </Container>
