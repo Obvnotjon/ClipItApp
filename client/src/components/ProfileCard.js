@@ -17,17 +17,9 @@ function ProfileCard () {
 
     const { isLoading, error, data } = useQuery(["users"], () =>
         makeRequest.get(`/getprofile/${username}`).then((res) => {
-        console.log(res.data)
         return res.data;
         })
     );
-
-    //Remove this later, just here to log info for testing
-    if (currentUser?.id === data?.id) {
-        console.log("Current user owns this page");
-    } else {
-        console.log("Logged in user is not owner of page")
-    }
     
     return (
         <>  

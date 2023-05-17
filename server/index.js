@@ -82,6 +82,13 @@ app.post("/addpost", (req, res) => {
     });
 });
 
+app.get("/suggestusers", (req, res) => {
+  const q = `SELECT id, name, username, pfp FROM smdb.users;`;
+  db.query(q, (error, result) => {
+     res.send(result);
+  });
+});
+
 //get the users friends for the freindsys table from mysql
 app.get("/friends/:username", (req, res) => {
     const token = req.cookies.access_token;
@@ -108,24 +115,21 @@ app.get("/friends/:username", (req, res) => {
 //Updates user info from edit profile page
 app.put("/updateuser", (req, res) => {
     const token= req.cookies.access_token;
-    console.log("Token, token");
+  
     if(!token) return res.status(401).json("Not logged in");
 
     jwt.verify(token, "jwtKey", (err, userInfo) => {
         if (err) {
-            console.log("Token error: ", err);
             return res.status(500).json("Invalid token")
         }
-        console.log("User Info: ", userInfo)
-        const q = "UPDATE users SET `name` = ?,`bio` = ?, `pfp` = ?, `banner` = ? WHERE id = ?";
+        const q = "UPDATE users SET `name` = ?,`bio` = ?, `pfp` = ?, `banner` = ?, `bgcover` = ? WHERE id = ?";
         const values = [
             req.body.name, req.body.bio,
-            req.body.pfp, req.body.banner, userInfo.id
+            req.body.pfp, req.body.banner,req.body.bgcover, userInfo.id
         ];
 
         db.query(q, values, (err, data) => {
             if (err) {
-                console.log("DB query err: ", err);
                 return res.status(500).json(err);
             }
             if (data.affectedRows > 0) {
@@ -221,29 +225,6 @@ app.get("/getposts", (req, res) => {
         });
     });
 });
-
-/*
-//Gets post data of user currently logged in
-app.get("/getmyposts", (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not logged in")
-
-    jwt.verify(token, "jwtKey", (err, userInfo) => {
-        if (err) return res.status(403).json("Invalid token")
-
-        const q = `SELECT p.*, u.id AS userId, username, name, pfp FROM posts AS p 
-        JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ? 
-        ORDER BY p.dateCreated DESC`;
-
-        db.query(q, [userInfo.id], (err, data) => {
-            if (err) {
-                return res.status(500).json(err);
-            }
-            return res.status(200).json(data);
-        });
-    });
-});
-*/
 
 app.get("/getuserposts/:username", (req, res) => {
     const { username } = req.params;
@@ -536,110 +517,3 @@ app.get('/friendship-status/:friendId', (req, res) => {
 app.listen(8800, () => {
     console.log("Connected to backend server");
 });
-
-// This function gets all the posts in the database, but we only want to display posts from friends
-/*
-app.get("/getposts", (req, res) => {
-    const q = "SELECT p.*, u.id AS userId, name, pfp FROM posts AS p JOIN users AS u ON (u.id = p.userId)";
-
-    db.query(q, (err, data) => {
-        if (err) {
-            return res.status(500).json(err);
-        }
-        return res.status(200).json(data);
-    });
-});
-*/
-
-/*
-app.post("/create", (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).send("Access Denied!");
-
-    jwt.verify(token, "jwtKey", (err, userInfo) => {
-        if (err) return res.status(403).send("Access Denied!");
-
-    
-
-        const values = [
-            req.body.title,
-            req.body.postContent,
-            req.body.postDesc,
-            moment().format('YYYY-MM-DD HH:mm:ss'),
-            userInfo.id
-        ]
-
-        const q = "INSERT INTO posts (title, postContent, postDesc, dateCreated, userId) VALUES (?)";
-        db.query(q, [values]), (err, results) => {
-            if (err) {
-                console.log("Error: " + err)
-                res.status(500).send("Internal Server Error")
-            }
-            else {
-                console.log("Post created")
-                res.status(200).send("Post created")
-            }
-    }});
-});
-
-app.get("/retrieve", (req, res) => {
-    console.log("Retrieving posts")
-    const q = "SELECT * FROM posts"
-    db.query(q, (err, data) => {
-        if (err) {
-            console.log("Error: " + err)
-            res.status(500).send("Internal Server Error")
-        }
-        else {
-            console.log("Posts retrieved")
-            res.status(200).send(data)
-        }
-    });
-});
-
-app.get("/signup", (req, res) => {
-    const q = "SELECT * FROM users"
-    db.query(q, (err, data)=>{
-        if(err) return res.json(err)
-        return res.json(data)
-    });
-});
-
-app.post("/update", (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).send("Access Denied!");
-
-    jwt.verify(token, "jwtKey", (err, userInfo) => {
-        if (err) return res.status(403).send("Access Denied!");
-
-
-        const { username } = req.body;
-        const qc = "SELECT * FROM users WHERE username = ?";
-
-        db.query(qc, [ username ], (err, results) => {
-            if (err) {
-                return res.status(500).send(err);
-            }
-            if (results.length > 0) {
-                return res.status(400).send("Username is already taken");
-            }
-
-
-            const q = "UPDATE users SET username = ?, name = ?, bio = ? WHERE id = ?";
-            db.query(q, [req.body.username,
-                req.body.name,
-                req.body.bio,
-                userInfo.id]), (err, results) => {
-                if (err) {
-                    console.log("Error: " + err)
-                    res.status(500).send("Internal Server Error")
-                }
-                else {
-                    console.log("Profile updated")
-                    res.status(200).send("Profile updated")
-                }
-            }
-        });
-    });
-});
-*/

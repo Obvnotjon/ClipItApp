@@ -12,6 +12,7 @@ function EditProfile() {
 
     const [selectedBanner, setSelectedBanner] = useState(null);
     const [selectedPfp, setSelectedPfp] = useState(null);
+    const [selectedCover, setSelectedCover] = useState(null);
     const [ bgcover, setCover ] = useState(null);
     const [banner, setBanner ] = useState(null);
     const [pfp, setPfp] = useState(null);
@@ -21,7 +22,6 @@ function EditProfile() {
 
     const { isLoading, error, data } = useQuery(["users"], () =>
         makeRequest.get(`/getprofile/${currentUser?.username}`).then((res) => {
-        console.log(res.data)
         return res.data;
         })
     );
@@ -66,6 +66,10 @@ function EditProfile() {
             let bannerUrl =  await upload(banner);
             updatedFields.banner = bannerUrl;
         }
+        if (bgcover) {
+            let bgcoverUrl = await upload(bgcover);
+            updatedFields.bgcover = bgcoverUrl;
+        }
         
         if (Object.keys(updatedFields).length === 0) {
             navigate(`/profile/${currentUser?.username}`);
@@ -78,7 +82,8 @@ function EditProfile() {
 
     return (
         <>
-        <div className="default-bg-container"/>
+        <div className={`${selectedCover ? "custom-bg-container" : "default-bg-container"}`}
+        style={{backgroundImage: selectedCover ? `url(${selectedCover})` : `url(${bgcover || data?.bgcover})`, backgroundPositionX: "center"}}/>
         <ClipItNav/>
         <h4 className="text-center text-light" style={{padding: "1%"}}>Edit Profile</h4>
         <Container className="d-flex align-items-center justify-content-center" 
@@ -91,7 +96,7 @@ function EditProfile() {
                             </div>
                             <div>
                              <ProfilePicture src={selectedPfp || profilePic} alt="pfp"/>
-
+                            <div className="d-flex align-items-center justify-content-between">
                             <input 
                                 type = "file"
                                 accept = "image/jpg, image/png, image/jpeg, image/gif"
@@ -103,13 +108,14 @@ function EditProfile() {
                                         setSelectedPfp(URL.createObjectURL(e.target.files[0]));
                                     }    
                                 }}>
+                            
                             </input>   
                             <label htmlFor = "input-pfp" 
-                                className = "rounded"
+                                className="rounded btn btn-primary d-flex align-items-center justify-content-center"
                                 style = {{
                                     display: "block", 
                                     width: "150px",
-                                    height: "35px",
+                                    height: "48px",
                                     border: "1px solid white",
                                     background: "#212121", 
                                     color: "#fff", 
@@ -131,11 +137,11 @@ function EditProfile() {
                                 }}>
                             </input>   
                             <label htmlFor = "input-banner" 
-                                className = "rounded"
+                                className="rounded btn btn-primary d-flex align-items-center justify-content-center"
                                 style = {{
                                     display: "block", 
                                     width: "150px",
-                                    height: "35px",
+                                    height: "48px",
                                     border: "1px solid white",
                                     background: "#212121", 
                                     color: "#fff", 
@@ -143,6 +149,34 @@ function EditProfile() {
                                     margin: "10px 1px"  
                                     }}>Update Banner
                             </label>
+
+                            <input 
+                                type = "file"
+                                accept = "image/jpg, image/png, image/jpeg, image/gif"
+                                id = "input-cover"
+                                style= {{display: "none"}}
+                                onChange= {(e) => {
+                                    if (e.target.files.length > 0) {
+                                        setCover(e.target.files[0]);
+                                        setSelectedCover(URL.createObjectURL(e.target.files[0]));
+                                    }    
+                                }}>
+                            </input>
+
+                            <label htmlFor = "input-cover" 
+                                className="rounded btn btn-primary d-flex align-items-center justify-content-center"
+                                style = {{
+                                    display: "block", 
+                                    width: "150px",
+                                    height: "48px",
+                                    border: "1px solid white",
+                                    background: "#212121", 
+                                    color: "#fff", 
+                                    padding: "5px 20px", 
+                                    margin: "10px 1px"  
+                                    }}>Update cover
+                            </label>
+                            </div>
                             </div>
                         <br/>
 
@@ -198,57 +232,5 @@ function EditProfile() {
         </>
     );
 }
-
-/*
-    const [username, setUsername] = useState("");
-    
-     const upload = async () => {
-        try {
-            const formData = new FormData();
-            formData.append("file", file)
-            const res = await makeRequest.post("/upload", formData);
-            const contentUrl = res.data;
-            return contentUrl;
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    const QueryClient = useQueryClient();
-
-    //makes API req to db to add post and reload current posts shown
-    const mutation = useMutation((user) => {
-        return makeRequest.put("/updateuser", user);
-    }, {
-        onSuccess: () => {
-            QueryClient.invalidateQueries(["user"]);
-        }
-    });
-
-    //Handles post creation functions on btn click
-    const handleUpdate = async (e) => {
-        e.preventDefault();
-        let coverUrl = ;
-        if (file) coverUrl = await upload();
-        mutation.mutate({ postDesc, postContent: contentUrl });
-        setPostDesc("");
-        setFile(null);
-    };
-*/
-
-    /*
-    const updateUserInfo = () => {
-        Axios.post("/update", {
-            name: name,
-            username: username,
-            bio: bio,
-        }).then(() => {
-            console.log("Success");
-        }).catch((error) => {
-            setError(error.response.data);
-        });
-    }
-    */
-
 
 export default EditProfile;

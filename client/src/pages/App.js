@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CreatePost from '../components/CreatePost';
 import PrivateRoute from '../context/PrivateRoute';
+import Notifications from './Notifications';
 import EditProfile from './EditProfile';
 import Messages from './Messages';
 import Friends from './Friends';
@@ -31,6 +32,8 @@ function App() {
                         element={<PrivateRoute><Friends/></PrivateRoute>}/>
                         <Route path="/messages" 
                         element={<PrivateRoute><Messages/></PrivateRoute>}/>
+                        <Route path="/notifications" 
+                        element={<PrivateRoute><Notifications/></PrivateRoute>}/>
                         
                         <Route path="/signup" element={<Signup />}/>
                         <Route path="/login" element={<Login />}/>

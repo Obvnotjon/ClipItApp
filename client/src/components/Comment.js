@@ -49,7 +49,8 @@ function Comment({ postId }) {
           <Button
             type="submit"
             className="btn-dark btn-sm border"
-            style={{ padding: '6px', backgroundColor: "#212121" }}
+            style={{ padding: '6px', backgroundColor: "#212121",
+            float: "right", marginBottom: "10px" }}
           >
             Comment
           </Button>

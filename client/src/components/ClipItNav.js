@@ -1,9 +1,33 @@
 import { AuthContext } from "../context/authContext";
 import PostPfp from "./PostPfp";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { makeRequest } from "../axios";
+import { Link, useParams } from "react-router-dom";
 
 function ClipItNav () {
     const { currentUser, logout } = useContext(AuthContext);
+    const [value, setValue] = useState('');
+    const {username } = useParams();
+    const onChange = (e) => {
+        setValue(e.target.value);
+    }
+
+    const onSearch = (searchTerm) => {
+        setValue(searchTerm);
+    }
+
+    const { isLoading, error, data } = useQuery(['finduser'], () =>
+        makeRequest.get("/suggestusers").then((res) => {
+            return res.data;
+        }));
+
+
+        const handleProfileClick = (username) => {
+            onSearch(username);
+            window.location.href =`/profile/${username}`;
+            setValue("");
+        }
     
     return (
         <div>
@@ -30,14 +54,66 @@ function ClipItNav () {
                                 aria-label="Close">
                             </button>
                         </div>
+                        {/* Search bar*/}
                         <div className="offcanvas-body ">
-                            <form className="d-flex" role="search">
-                                <input className="form-control rounded-start" type="search" placeholder="Search" aria-label="Search" />
-                                <button className="btn btn-sm btn-light" style={{color: "#263238"}} type="submit">
-                                    {<i className="fa-solid fa-magnifying-glass"></i>}
-                                </button>
-                            </form>
+                            <div className = "search-container" 
+                            style = {{
+                            width: "40px",
+                            display: "flex",
+                            flexDirection: "column"
+                            }}>
+                                <div className = "search-inner">
+                                <form 
+                                    className = "d-flex" 
+                                    role = "search">
 
+                                    <input 
+                                    className = "search" 
+                                    type = "text" 
+                                    placeholder = "Search" 
+                                    aria-label = "Search"
+                                    value = {value}
+                                    onChange = {onChange} />
+                                    <button 
+                                        className = "btn btn-sm btn-light" 
+                                        style = {{
+                                        color: "#263238"}}
+                                        type = "button"
+                                        onClick = {() => onSearch(value)}>
+                                            {<i className="fa-solid fa-magnifying-glass"></i>}
+                                    </button>
+                                </form>
+                                <div className="finduser">
+                                    <div className="dropdown"
+                                    style = {{
+                                    display: "flex",
+                                    width: "200px",
+                                    background: "#fff",
+                                    color: "#36454F",
+                                    flexDirection: "column",
+                                    }}>
+                                        { error ? "Uh Oh, Something went wrong. Please go back" : 
+                                        isLoading ? "Loading" :
+                                        data && data.filter(item => {
+                                        const searchTerm = value.toLowerCase();
+                                        const user = item.username.toLowerCase();
+
+                                        return searchTerm && user.startsWith(searchTerm) && user !== searchTerm;
+                                        }).map((item) => (
+                                            <Link to={`/profile/${item.username}`} style={{textDecoration: "none", color: "inherit"}}>
+                                                <div 
+                                                    className = "dropdown-row" key = {item.id}
+                                                    onClick = { () => handleProfileClick(item.username)}>
+                                                    {item.pfp ? <PostPfp src={item.pfp} alt="pfp"/> : 
+                                                    <PostPfp src="images/blankpfp.jpg" alt="pfp"/>}{item.username}
+                                                </div>
+                                            </Link>  
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                             <ul className="navbar-nav justify-content-end flex-grow-1 pe-1  align-items-start">
                                 <li className="nav-item">
                                     <a className="nav-link" href="/">
@@ -49,6 +125,12 @@ function ClipItNav () {
                                     <a className="nav-link" href={`/profile/${currentUser?.username}`}>
                                         {<i className="fa-solid fa-address-card" 
                                         style={{color: "#E8E2E2", padding: "10px 1px"}}/>}  Profile
+                                    </a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/notifications">
+                                        {<i class="fa-solid fa-bell"
+                                        style={{color: "#E8E2E2", padding: "10px 1px"}}></i>}  Notifications
                                     </a>
                                 </li>
                                 <li className="nav-item">
@@ -76,7 +158,7 @@ function ClipItNav () {
                 </nav>
             </div>
             <div style={{height: "80px"}}>
-                a
+                
             </div>
         </div>
     );

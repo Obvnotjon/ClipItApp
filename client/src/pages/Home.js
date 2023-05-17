@@ -29,8 +29,6 @@ function Home() {
         })
     );
 
-    console.log(data);
-
     return (
         <>
         <div className="default-bg-container"/>
